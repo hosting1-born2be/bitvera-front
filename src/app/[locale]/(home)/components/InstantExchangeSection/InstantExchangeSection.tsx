@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+import { SIGN_UP_URL } from '@/shared/lib/constants/constants';
 import { fadeInUp } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
-import styles from './PlansSection.module.scss';
+import styles from './InstantExchangeSection.module.scss';
 
-export const PlansSection = () => {
+export const InstantExchangeSection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
 
@@ -37,7 +38,7 @@ export const PlansSection = () => {
               </p>
 
               <div className={styles.buttonWrap}>
-                <Button variant="filled" url="/get-in-touch" type="link">
+                <Button variant="filled" url={SIGN_UP_URL} type="link">
                   {t('plansCta', { fallback: 'Exchange now' })}
                 </Button>
               </div>

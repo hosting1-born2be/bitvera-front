@@ -7,9 +7,9 @@ import { useTranslations } from 'next-intl';
 
 import { fadeInUp } from '@/shared/lib/helpers/animations';
 
-import styles from './WhySection.module.scss';
+import styles from './SafetyFaqSection.module.scss';
 
-export const WhySection = () => {
+export const SafetyFaqSection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
   const [activeKey, setActiveKey] = useState<string | null>(null);

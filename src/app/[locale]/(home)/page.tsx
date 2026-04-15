@@ -1,12 +1,12 @@
 import {
-  ApproachSection,
-  ClosingSection,
+  BenefitsSection,
   HeroSection,
-  PlansSection,
-  ServicesSection,
-  SolutionsSection,
-  WhySection,
-  WorkSection,
+  InstantExchangeSection,
+  SafetyFaqSection,
+  SecuritySection,
+  StartExchangeSection,
+  TrustSection,
+  WelcomeSection,
 } from "./components";
 import styles from "./page.module.scss";
 
@@ -18,20 +18,20 @@ export default function Home() {
       <section className={styles.infoGroup}>
         <div className="container">
           <div className={styles.infoGroupInner}>
-            <SolutionsSection />
+            <WelcomeSection />
 
             <div className={styles.infoGrid}>
-              <ServicesSection />
-              <ApproachSection />
+              <SecuritySection />
+              <TrustSection />
             </div>
           </div>
         </div>
       </section>
 
-      <ClosingSection />
-      <PlansSection />
-      <WorkSection />
-      <WhySection />
+      <StartExchangeSection />
+      <InstantExchangeSection />
+      <BenefitsSection />
+      <SafetyFaqSection />
     </div>
   );
 }

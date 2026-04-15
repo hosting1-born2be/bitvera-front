@@ -5,9 +5,9 @@ import { useTranslations } from "next-intl";
 
 import { fadeInUp } from "@/shared/lib/helpers/animations";
 
-import styles from "./ApproachSection.module.scss";
+import styles from "./TrustSection.module.scss";
 
-export const ApproachSection = () => {
+export const TrustSection = () => {
   const t = useTranslations("homePage");
   const viewport = { once: true, amount: 0.2 };
 

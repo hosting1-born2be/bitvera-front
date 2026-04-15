@@ -5,9 +5,9 @@ import { useTranslations } from 'next-intl';
 
 import { fadeInUp } from '@/shared/lib/helpers/animations';
 
-import styles from './ServicesSection.module.scss';
+import styles from './SecuritySection.module.scss';
 
-export const ServicesSection = () => {
+export const SecuritySection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
 

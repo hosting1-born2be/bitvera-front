@@ -3,12 +3,13 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+import { SIGN_UP_URL } from '@/shared/lib/constants/constants';
 import { fadeInUp } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
-import styles from './WorkSection.module.scss';
+import styles from './BenefitsSection.module.scss';
 
-export const WorkSection = () => {
+export const BenefitsSection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
   const items = [
@@ -83,7 +84,7 @@ export const WorkSection = () => {
             viewport={viewport}
             custom={0.24}
           >
-            <Button variant="filled" url="/get-in-touch" type="link">
+            <Button variant="filled" url={SIGN_UP_URL} type="link">
               {t('workCta', { fallback: 'Create a profile' })}
             </Button>
           </motion.div>

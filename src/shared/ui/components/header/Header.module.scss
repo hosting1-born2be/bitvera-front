@@ -70,6 +70,7 @@ $white: #ffffff;
   top: 0;
   z-index: 30;
   margin-bottom: -102px;
+  transition: background 0.3s ease-in-out;
 
   &.isScrolled {
     background: $bg;

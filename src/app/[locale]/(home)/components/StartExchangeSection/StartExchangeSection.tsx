@@ -2,16 +2,17 @@
 
 import { useTranslations } from "next-intl";
 
+import { SIGN_UP_URL } from "@/shared/lib/constants/constants";
 import { Button } from "@/shared/ui/kit/button/Button";
 
-import styles from "./ClosingSection.module.scss";
+import styles from "./StartExchangeSection.module.scss";
 
 type Step = {
   number: string;
   title: string;
 };
 
-export const ClosingSection = () => {
+export const StartExchangeSection = () => {
   const t = useTranslations("homePage");
 
   const steps: readonly Step[] = [
@@ -47,7 +48,7 @@ export const ClosingSection = () => {
             </h2>
 
             <div className={styles.buttonWrap}>
-              <Button variant="filled" type="link" url="/#signup">
+              <Button variant="filled" type="link" url={SIGN_UP_URL}>
                 <span>{t("startCta", { fallback: "Create a profile" })}</span>
               </Button>
             </div>

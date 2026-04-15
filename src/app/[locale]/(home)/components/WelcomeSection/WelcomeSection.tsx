@@ -6,9 +6,9 @@ import { useTranslations } from 'next-intl';
 import { fadeInUp } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
-import styles from './SolutionsSection.module.scss';
+import styles from './WelcomeSection.module.scss';
 
-export const SolutionsSection = () => {
+export const WelcomeSection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
 

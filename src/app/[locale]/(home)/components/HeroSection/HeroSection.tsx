@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
+import { SIGN_UP_URL } from '@/shared/lib/constants/constants';
 import { fadeInLeft, fadeInRight } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
@@ -226,7 +227,7 @@ export const HeroSection = () => {
               </p>
 
               <div className={styles.buttonWrap}>
-                <Button variant="filled" url="/get-in-touch" type="link">
+                <Button variant="filled" url={SIGN_UP_URL} type="link">
                   {t('heroPrimaryCta', { fallback: 'Get Started' })}
                 </Button>
               </div>
