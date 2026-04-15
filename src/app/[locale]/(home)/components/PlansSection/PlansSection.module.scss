@@ -1,0 +1,143 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  background: #efeef3;
+  overflow: hidden;
+  background: #efeef3 url("/images/home/bitvera/exchange-bg-desktop.png") center /
+    cover no-repeat;
+  @include mobile {
+    background-image: url("/images/home/bitvera/exchange-bg-mobile.png");
+  }
+}
+
+.sectionInner {
+  padding: 0 0 60px;
+
+  @include mobile {
+    padding-bottom: 0;
+  }
+}
+
+.banner {
+  position: relative;
+  overflow: hidden;
+
+  padding: 134px 0;
+  text-align: center;
+
+  @include mobile {
+    padding: 109px 16px;
+  }
+}
+
+.tokenTopWrap,
+.tokenBottomWrap {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.tokenTopWrap {
+  top: -231px;
+  right: -162px;
+  width: 448.98px;
+  height: 427.08px;
+
+  @include mobile {
+    top: -129px;
+    right: -67px;
+    width: 246px;
+    height: 234px;
+  }
+}
+
+.tokenBottomWrap {
+  left: 0;
+  bottom: 0;
+  width: 231px;
+  height: 172px;
+
+  @include mobile {
+    width: 161px;
+    height: 120px;
+  }
+}
+
+.tokenTop,
+.tokenBottom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bannerContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.title {
+  margin: 0;
+  color: #1600d3;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 72px;
+  }
+
+  @include mobile {
+    font-size: 60px;
+    line-height: 1.1;
+  }
+}
+
+.description {
+  margin: 0;
+  max-width: 900px;
+  color: #1600d3;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+.buttonWrap {
+  display: inline-flex;
+
+  :global(a),
+  :global(button) {
+    border: 2px solid #151515 !important;
+    border-radius: 70px !important;
+    background: #151515 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-family: var(--font-clash-grotesk), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.03em !important;
+    padding: 20px 32px !important;
+    text-transform: none !important;
+  }
+
+  :global(a:hover),
+  :global(button:hover) {
+    border-color: #151515 !important;
+    background: #151515 !important;
+    color: #ffffff !important;
+  }
+}

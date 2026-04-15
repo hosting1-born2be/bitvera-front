@@ -1,0 +1,167 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.langSelector {
+  position: relative;
+  width: 140px;
+
+  > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    background: transparent;
+    color: #eb5e28;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+    text-align: left;
+  }
+
+  &__current {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: 95px;
+
+    img {
+      display: block;
+      width: 24px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    span {
+      white-space: nowrap;
+    }
+  }
+}
+
+.langSelectorButtonOpen {
+  border-radius: 16px 16px 0 0;
+  background: #252422 !important;
+  color: rgba(255, 253, 241, 0.2) !important;
+  
+}
+
+.langSelectorDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: 140px;
+  overflow: hidden;
+  border-radius: 0 0 16px 16px;
+  background: #252422;
+  z-index: 1001;
+}
+
+.langSelectorDropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 32px;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 253, 241, 0.5);
+  background: transparent;
+  color: #fffdf1;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: left;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background: #403d38;
+  }
+}
+
+.langSelectorDropdownItemInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: 95px;
+
+  img {
+    display: block;
+    width: 24px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  span {
+    display: block;
+    min-width: 63px;
+    white-space: nowrap;
+  }
+}
+
+.compact {
+  @include tablet {
+    width: 140px;
+  }
+}
+
+.mobileMenu {
+  width: 100%;
+
+  > button {
+    justify-content: flex-start;
+    min-height: 43px;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(255, 253, 241, 0.5);
+    color: #fffdf1;
+  }
+
+  .langSelector__current {
+    width: 95px;
+  }
+
+  .langSelectorDropdown {
+    position: static;
+    width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255, 253, 241, 0.5);
+  }
+
+  .langSelectorDropdownItem {
+    justify-content: flex-start;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(255, 253, 241, 0.5);
+    background: transparent;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+
+    span {
+      min-width: auto;
+    }
+  }
+
+  .langSelectorDropdownItemInner {
+    width: auto;
+  }
+
+  .langSelectorButtonOpen {
+    border-radius: 0;
+    background: transparent !important;
+    color: #fffdf1 !important;
+  }
+}

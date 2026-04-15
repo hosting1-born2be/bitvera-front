@@ -1,0 +1,33 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.card {
+  display: flex;
+  min-height: 600px;
+  align-items: flex-start;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #050505 url('/images/home/bitvera/privacy-card-desktop.png') center / cover no-repeat;
+  padding: 40px;
+
+  @include mobile {
+    min-height: 500px;
+    background-image: url('/images/home/bitvera/privacy-card-mobile.png');
+    padding: 20px;
+  }
+}
+
+.copy {
+  margin: 0;
+  max-width: 520px;
+  color: #f5f5f5;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 24px;
+    letter-spacing: -0.04em;
+  }
+}

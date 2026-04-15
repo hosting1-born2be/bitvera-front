@@ -1,0 +1,30 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.page {
+  background: #ffffff;
+}
+
+.infoGroup {
+  background: #ffffff;
+  padding: 80px 0;
+
+  @include tablet {
+    padding: 40px 0;
+  }
+}
+
+.infoGroupInner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.infoGrid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}

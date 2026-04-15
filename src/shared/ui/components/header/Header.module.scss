@@ -1,0 +1,289 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+$ink: #151515;
+$ink-soft: #333333;
+$bg: #efeef3;
+$notice-bg: #111111;
+$notice-text: #efeef3;
+$muted: #808099;
+$white: #ffffff;
+
+.notice {
+  background: $notice-bg;
+  color: $notice-text;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    padding: 10px 0;
+
+    @include tablet {
+      gap: 24px;
+    }
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 10px 0;
+    }
+  }
+
+  &__title,
+  &__body {
+    margin: 0;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-style: normal;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+
+    @include mobile {
+      min-width: auto;
+    }
+  }
+
+  &__copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+
+  &__body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  margin-bottom: -102px;
+
+  &.isScrolled {
+    background: $bg;
+  }
+
+  &__shell {
+    position: relative;
+  }
+
+  &__main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px 0;
+
+    @include mobile {
+      align-items: center;
+    }
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 32px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 70px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8.75px);
+    color: $ink;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    @include mobile {
+      padding: 22px 32px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-left: auto;
+  }
+
+  &__desktopActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__buttonWrap {
+    display: inline-flex;
+
+    :global(a),
+    :global(button) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 70px !important;
+      box-shadow: none !important;
+      font-family: var(--font-clash-grotesk), sans-serif !important;
+      font-size: 18px !important;
+      font-weight: 500 !important;
+      line-height: 1.4 !important;
+      letter-spacing: -0.03em !important;
+      text-transform: none !important;
+      white-space: nowrap;
+    }
+  }
+
+  &__buttonWrap--light {
+    :global(a),
+    :global(button) {
+      border: 2px solid rgba(255, 255, 255, 0.9) !important;
+      background: rgba(255, 255, 255, 0.75) !important;
+      backdrop-filter: blur(8.75px);
+      color: $ink !important;
+      padding: 20px 34px !important;
+    }
+
+    :global(a:hover),
+    :global(button:hover) {
+      border-color: rgba(255, 255, 255, 0.9) !important;
+      background: rgba(255, 255, 255, 0.75) !important;
+      color: $ink !important;
+    }
+  }
+
+  &__buttonWrap--dark {
+    :global(a),
+    :global(button) {
+      border: 2px solid $ink-soft !important;
+      background: $notice-bg !important;
+      color: #f5f5f5 !important;
+      padding: 20px 32px !important;
+    }
+
+    :global(a:hover),
+    :global(button:hover) {
+      border-color: $ink-soft !important;
+      background: $notice-bg !important;
+      color: #f5f5f5 !important;
+    }
+  }
+
+  &__buttonWrap--menu {
+    :global(a),
+    :global(button) {
+      gap: 6px !important;
+      border: none !important;
+      background: transparent !important;
+      color: $ink !important;
+      padding: 20px 0 20px 32px !important;
+    }
+
+    :global(a:hover),
+    :global(button:hover) {
+      background: transparent !important;
+      color: $ink !important;
+    }
+
+    @include mobile {
+      :global(a),
+      :global(button) {
+        padding: 20px 0 20px 24px !important;
+      }
+    }
+  }
+
+  &__menuIcon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+  }
+
+  &__mobileMenu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(100%, 360px);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
+
+    &[data-open='true'] {
+      max-height: 720px;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @include tablet {
+      width: 100%;
+    }
+  }
+
+  &__mobileMenuInner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(18px);
+    padding: 24px;
+    box-shadow: 0 24px 60px rgba(21, 21, 21, 0.12);
+  }
+
+  &__mobileNav {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  &__mobileNavItem,
+  &__mobileMeta {
+    color: $ink;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+  }
+
+  &__mobileButtons {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    @include tablet {
+      display: flex;
+    }
+
+    .header__buttonWrap {
+      flex: 1 1 0;
+    }
+  }
+
+  &__mobileMeta {
+    color: $muted;
+    font-size: 14px;
+  }
+}

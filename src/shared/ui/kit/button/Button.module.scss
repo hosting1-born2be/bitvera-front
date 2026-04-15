@@ -1,0 +1,59 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.button {
+  border-radius: 2px;
+  border: 1px solid;
+  display: inline-flex;
+  padding: 14px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-family-Font-5, "Space Mono");
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 14px */
+  letter-spacing: 0.1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &.de,
+  &.it {
+    font-size: 16px !important;
+    padding: 16px 32px !important;
+    span {
+      font-size: 16px !important;
+    }
+  }
+
+  &.filled {
+    border-radius: 2px;
+    background: var(--Light-Orange, #ff4500);
+    border-color: var(--Light-Orange, #ff4500);
+    color: #fff;
+    &:hover {
+      background: transparent;
+      border-color: var(--Light-Orange, #ff4500);
+      color: var(--Light-Orange, #ff4500);
+      svg {
+        path {
+          fill: var(--Light-Orange, #ff4500);
+        }
+      }
+    }
+  }
+  &.bordered {
+    background: transparent;
+    border-color: var(--Light-Orange, #ff4500);
+    color: var(--Light-Orange, #ff4500);
+    &:hover {
+      background: var(--Light-Orange, #ff4500);
+      color: #fff;
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+}

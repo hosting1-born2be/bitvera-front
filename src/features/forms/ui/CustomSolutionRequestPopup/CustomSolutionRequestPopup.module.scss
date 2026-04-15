@@ -1,0 +1,86 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+$panel: #0d0d0d;
+$white-50: rgba(255, 255, 255, 0.5);
+
+.panel {
+  width: min(100%, 1110px);
+  max-height: 95vh;
+  overflow-y: auto;
+  position: relative;
+  background: $panel;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $panel;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+  }
+}
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 22px 40px 20px;
+  background: $panel;
+
+  @include mobile {
+    padding: 40px 20px;
+  }
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-end;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #e0e0e0;
+  }
+}
+
+.closeIcon {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.9;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7px;
+    height: 1px;
+    background: currentColor;
+    content: '';
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}

@@ -1,0 +1,148 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  background: #efeef3;
+  color: #111111;
+}
+
+.sectionInner {
+  display: grid;
+  grid-template-columns: minmax(0, 456px) minmax(0, 800px);
+  justify-content: space-between;
+  gap: 40px;
+  padding: 80px 0;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  color: #111111;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    max-width: 520px;
+  }
+
+  @include mobile {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+}
+
+.description {
+  margin: 0;
+  color: #111111;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faqItem {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.faqButton {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: transparent;
+  color: inherit;
+  padding: 24px 24px 24px 32px;
+  text-align: left;
+
+  @include mobile {
+    padding: 24px;
+  }
+}
+
+.faqQuestion {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.faqIcon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 40px;
+  background: rgba(128, 128, 153, 0.5);
+}
+
+.faqIconHorizontal,
+.faqIconVertical {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+.faqIconHorizontal {
+  width: 16px;
+  height: 2px;
+}
+
+.faqIconVertical {
+  width: 2px;
+  height: 16px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.faqIcon[data-open='true'] .faqIconVertical {
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(0);
+}
+
+.faqAnswer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 32px 32px;
+
+  @include mobile {
+    padding: 0 24px 24px;
+  }
+
+  p {
+    margin: 0;
+    color: #111111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+  }
+}

@@ -1,0 +1,33 @@
+$primary: #040213;
+$accent: #ff2f66;
+$light: #808080;
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin largeDesktop {
+  @media (min-width: 1600px) {
+    @content;
+  }
+}
+
+@mixin largeDesktopPlus {
+  @media (min-width: 1900px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}

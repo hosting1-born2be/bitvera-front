@@ -1,0 +1,102 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+$panel: #141414;
+$orange: #ff4500;
+$text-main: #a6a6a6;
+$text-muted: rgba(255, 255, 255, 0.25);
+$white: #ffffff;
+
+.cookiePopup {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: $panel;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 16px 0;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.copy {
+  display: flex;
+  width: min(100%, 816px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  color: $text-main;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.text {
+  margin: 0;
+  color: $text-main;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 24px;
+
+  @include tablet {
+    width: 100%;
+  }
+}
+
+.acceptButtonWrap {
+  display: inline-flex;
+  align-items: center;
+
+  @include tablet {
+    flex: 1 1 0;
+  }
+}
+
+.moreLink {
+  color: $text-muted;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @include tablet {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    text-align: center;
+  }
+}

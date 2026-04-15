@@ -1,0 +1,161 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.card {
+  width: 100%;
+  border: 1px solid #eb5e28;
+  border-radius: 24px;
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  background: transparent;
+  margin: 20px 0;
+
+  @include mobile {
+    gap: 24px;
+    padding: 32px 20px;
+  }
+
+  &__body {
+    width: min(946px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    text-align: center;
+
+    @include mobile {
+      gap: 24px;
+    }
+  }
+
+  &__title {
+    margin: 0 auto;
+    max-width: 680px;
+    color: #eb5e28;
+    font-family: var(--font-syne), sans-serif;
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -3.84px;
+
+    @include tablet {
+      font-size: 48px;
+      letter-spacing: -2.88px;
+      max-width: 100%;
+    }
+
+    @include mobile {
+      font-size: 40px;
+      letter-spacing: -2.4px;
+    }
+  }
+
+  &__content {
+    width: min(626px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.35;
+
+    p {
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    a {
+      color: #eb5e28;
+      text-decoration: underline;
+      text-decoration-thickness: 6%;
+      text-underline-offset: 0.12em;
+    }
+
+    @include tablet {
+      font-size: 18px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__note {
+    width: min(626px, 100%);
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.35;
+
+    p {
+      margin: 0;
+      text-wrap: balance;
+    }
+
+    @include tablet {
+      font-size: 18px;
+    }
+
+    @include mobile {
+      font-size: 16px;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  &__prompt {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 56px;
+    padding: 8px 52px;
+    border-radius: 999px;
+    background: #f56624;
+    color: #fffcf1;
+    text-decoration: none;
+    font-family: var(--font-plus-jakarta-sans), sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: #ae431b;
+      transform: translateY(-1px);
+    }
+
+    @include mobile {
+      width: 100%;
+      max-width: 320px;
+      gap: 12px;
+      padding: 10px 24px;
+      font-size: 18px;
+    }
+  }
+}

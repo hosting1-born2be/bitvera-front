@@ -1,0 +1,120 @@
+@use "@/shared/lib/styles/mixin.scss" as *;
+
+.article {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 21px;
+
+  @include tablet {
+    gap: 32px;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+/* ── Table of contents ──────────────────────────── */
+
+.toc {
+  position: sticky;
+  top: 124px;
+  width: 467px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 16px;
+  border: 1px solid #eb5e28;
+  border-radius: 16px;
+  background: transparent;
+  max-height: calc(100vh - 124px - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+
+  @include tablet {
+    width: 280px;
+    top: 108px;
+    max-height: calc(100vh - 108px - 40px);
+  }
+
+  @include mobile {
+    position: static;
+    width: 100%;
+    border-radius: 12px;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  &__item {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc6ba;
+    width: 100%;
+    transition: opacity 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:hover {
+      opacity: 0.72;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #eb5e28;
+  }
+
+  &__label {
+    font-family: var(--font-plus-jakarta-sans, sans-serif);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    color: #eb5e28;
+
+    @include tablet {
+      font-size: 16px;
+    }
+  }
+
+  &__item--active &__label {
+    font-weight: 600;
+  }
+}
+
+/* ── Content ──────────────────────────── */
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-width: 0;
+  max-width: 790px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,0 +1,169 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+$panel: rgba(255, 255, 255, 0.05);
+$white-50: rgba(255, 255, 255, 0.5);
+$white-25: rgba(255, 255, 255, 0.25);
+
+.card {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr) minmax(320px, 0.88fr);
+  gap: 80px;
+  align-items: center;
+  padding: 40px;
+  background: $panel;
+
+  @include desktop {
+    gap: 40px;
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @include mobile {
+    padding: 32px 20px;
+  }
+}
+
+.order {
+  color: #666;
+  font-family: var(--font-roboto-mono), monospace;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  color: #e0e0e0;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 24px;
+  }
+}
+
+.description {
+  margin: 0;
+  max-width: 720px;
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px 40px;
+}
+
+.price {
+  margin: 0;
+  color: #ff4500;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.buttonWrap {
+  display: inline-flex;
+  width: fit-content;
+
+  :global(a),
+  :global(button) {
+    padding: 14px 24px !important;
+    line-height: 1;
+  }
+}
+
+.buttonContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.buttonIcon {
+  flex: 0 0 auto;
+  color: currentColor;
+}
+
+.included {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.includedLabel {
+  margin: 0;
+  color: $white-25;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.includedList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.includedItem {
+  display: grid;
+  grid-template-columns: 8px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.bullet {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  background: $white-25;
+}
+
+.includedText {
+  margin: 0;
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}

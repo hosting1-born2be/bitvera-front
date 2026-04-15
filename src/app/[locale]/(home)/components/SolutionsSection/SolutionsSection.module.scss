@@ -1,0 +1,115 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.card {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #efeef3 url('/images/home/bitvera/welcome-card-desktop.png') center / cover no-repeat;
+  min-height: 500px;
+  padding: 40px;
+
+  @include mobile {
+    min-height: 500px;
+    background-image: url('/images/home/bitvera/welcome-card-mobile.png');
+    padding: 20px;
+  }
+}
+
+.cardContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  height: 100%;
+
+  @include tablet {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+}
+
+.title {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  margin: 0;
+  color: #121730;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 96px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+  @include desktop {
+    font-size: 82px;
+  }
+
+  @include tablet {
+    font-size: 68px;
+  }
+
+  @include mobile {
+    font-size: 60px;
+    line-height: 1.1;
+  }
+}
+
+.sideContent {
+  display: flex;
+  width: 543px;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 16px;
+
+  @include tablet {
+    width: 100%;
+    max-width: 480px;
+    padding-top: 0;
+  }
+}
+
+.description {
+  margin: 0;
+  color: #0000ee;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+
+  @include mobile {
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
+}
+
+.buttonWrap {
+  display: inline-flex;
+
+  :global(a),
+  :global(button) {
+    border: 2px solid #151515 !important;
+    border-radius: 70px !important;
+    background: #151515 !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-family: var(--font-clash-grotesk), sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.03em !important;
+    padding: 20px 32px !important;
+    text-transform: none !important;
+  }
+
+  :global(a:hover),
+  :global(button:hover) {
+    border-color: #151515 !important;
+    background: #151515 !important;
+    color: #ffffff !important;
+  }
+}

@@ -1,0 +1,35 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.quickLinks {
+  padding: 64px 0;
+  @include tablet {
+    padding: 32px 0;
+  }
+  h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 32px;
+    @include tablet {
+      font-size: 24px;
+    }
+  }
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    @include tablet {
+    }
+    a {
+      font-size: 14px;
+      @include tablet {
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+    }
+  }
+}

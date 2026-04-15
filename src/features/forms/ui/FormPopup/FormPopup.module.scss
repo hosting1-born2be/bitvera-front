@@ -1,0 +1,366 @@
+@use "@/shared/lib/styles/mixin.scss" as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 24px;
+  box-sizing: border-box;
+  @include tablet {
+    padding: 16px;
+  }
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.panel {
+  width: 100%;
+  max-width: 800px;
+  max-height: 95vh;
+  border: 1px solid #222;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #000 100%), #000;
+  padding: 32px;
+  overflow-y: auto;
+  @include tablet {
+    padding: 24px;
+  }
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #000;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 100px;
+  }
+}
+
+.title {
+  color: #fff;
+  font-size: 32px;
+  line-height: normal;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  color: rgba(204, 204, 204, 0.8);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: normal;
+  margin: 0 0 24px;
+}
+
+.description {
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+
+  .formNote {
+    color: rgba(204, 204, 204, 0.3);
+    text-align: center;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: -12px;
+  }
+
+  .formRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+
+    label {
+      color: #ccc;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+
+      .required {
+        color: #ff2d30;
+        margin-left: 4px;
+      }
+
+      .optional {
+        color: rgba(204, 204, 204, 0.3);
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+      }
+
+      .descriptionPlaceholder {
+        color: rgba(204, 204, 204, 0.3);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+      }
+    }
+
+    input,
+    textarea,
+    select {
+      display: flex;
+      padding: 10px 16px;
+      align-items: center;
+      gap: 10px;
+      align-self: stretch;
+      transition: border-color 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+      width: 100%;
+      box-sizing: border-box;
+      &:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      option {
+        background: #1a1a1a;
+        color: #fff;
+      }
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    &.hasError input,
+    &.hasError textarea {
+      border-color: rgba(255, 62, 71, 0.3);
+    }
+
+    .errorInput {
+      border-color: rgba(255, 62, 71, 0.3);
+    }
+
+    .error {
+      color: #ff2d30;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      margin-top: 4px;
+    }
+
+    &.textarea textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+  }
+
+  button {
+  }
+}
+
+.submitError {
+  color: #ff2d30;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 0 8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-top: 8px;
+  button {
+    width: fit-content !important;
+  }
+}
+
+// Success state (aligned with contactFormSuccess)
+.successPanel {
+  text-align: center;
+  padding: 24px 0;
+
+  h2 {
+    color: #fff;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 110%;
+    text-align: center;
+    margin: 0 0 12px;
+    @include tablet {
+      font-size: 24px;
+    }
+  }
+
+  p {
+    color: rgba(204, 204, 204, 0.8);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    margin: 0 0 32px;
+    @include tablet {
+      font-size: 14px;
+    }
+  }
+
+  .returnButton {
+    display: inline-block;
+  }
+}
+
+// react-select (from ContactForm.module.scss)
+.select {
+  width: 100%;
+
+  .select__control {
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    box-shadow: none;
+
+    &:hover {
+      border-color: #faf9f8;
+    }
+
+    &--is-focused {
+      border-color: #4bed7b;
+      box-shadow: none;
+    }
+  }
+
+  .select__value-container {
+    padding: 0 0 0 16px;
+  }
+
+  .select__input-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  .select__menu {
+    border-radius: 16px;
+    border: 1px solid #4bed7b;
+    background: var(--White, #fff);
+    box-shadow: 0px 5px 20px 0px rgba(60, 13, 101, 0.07);
+    overflow: hidden;
+    z-index: 1;
+    background-color: #faf9f8;
+  }
+
+  .select__option {
+    z-index: 1;
+    padding: 10px 14px;
+    color: var(--Gray-900, #101828);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    background-color: #faf9f8;
+    cursor: pointer;
+
+    &--is-focused {
+      background-color: #f5f5f5;
+    }
+
+    &--is-selected {
+      background-color: #000;
+      color: #fff;
+    }
+  }
+}
+
+.selectError .select__control {
+  border-color: #ff2d30;
+}
+
+// react-phone-input-2 (from ContactForm.module.scss)
+.phoneInputContainer {
+  width: 100%;
+  font-family: inherit;
+
+  .phoneInput {
+    width: 100% !important;
+  }
+
+  .form-control {
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    padding: 10px 16px 10px 52px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.03);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: normal;
+    transition: border-color 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: none;
+    }
+  }
+}
+
+.phoneInput {
+  padding-left: 40px !important;
+
+  &.errorInput {
+    border-color: rgba(255, 62, 71, 0.5) !important;
+  }
+}

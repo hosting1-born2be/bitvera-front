@@ -1,0 +1,42 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.card {
+  display: flex;
+  min-height: 600px;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #1600d3 url('/images/home/bitvera/transactions-card-desktop.jpg') center / cover no-repeat;
+  padding: 40px;
+
+  @include tablet {
+    align-items: flex-start;
+  }
+
+  @include mobile {
+    min-height: 500px;
+    background-image: url('/images/home/bitvera/transactions-card-mobile.jpg');
+    padding: 20px;
+  }
+}
+
+.copyGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.copy {
+  margin: 0;
+  color: #f5f5f5;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 24px;
+    letter-spacing: -0.04em;
+  }
+}

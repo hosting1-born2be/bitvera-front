@@ -1,0 +1,333 @@
+@use './mixin.scss' as *;
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  scroll-behavior: smooth;
+  font-family: var(--font-space-mono), sans-serif;
+}
+
+
+body {
+  line-height: 1.2;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  top: 0 !important;
+  background: #fff;
+  margin: 0;
+  height: auto;
+  //cursor: none !important;
+  &::-webkit-scrollbar {
+    background: transparent;
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #1600D3;
+    border-radius: 100px;
+  }
+
+}
+
+
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled,
+[aria-disabled='true'] {
+  cursor: not-allowed !important;
+}
+
+font {
+  pointer-events: none !important;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+img {
+  vertical-align: top;
+  max-width: 100%;
+  height: auto;
+}
+
+* {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+  padding: 0 16px;
+  width: 100%;
+  max-width: 1328px;
+  margin: 0 auto;
+  @include largeDesktop {
+    max-width: 1440px;
+  }
+  @include largeDesktopPlus {
+    max-width: 1768px;
+  }
+  @include tablet {
+  }
+}
+
+.react-tel-input {
+  .selected-flag {
+    background: transparent !important;
+    border: none !important;
+  }
+  .flag-dropdown {
+    background: transparent !important;
+    border: none !important;
+  }
+}
+
+@keyframes fadeIn3D {
+  from {
+    opacity: 0.2;
+    transform: matrix3d(1.1, 0, 0, 0, 0, 1, 2, -0.0003, 0, 0, 3, 0, 0, 0, 0, 1);
+  }
+  to {
+    opacity: 1;
+    transform: matrix3d(1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+}
+
+.fadeIn3D {
+  animation: fadeIn3D linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+  transition: all 0.5s ease-in-out;
+  @media (max-width: 992px) {
+    animation-range: entry 0% cover 20%;
+  }
+}
+
+.react-tel-input {
+  .country-list {
+    background-color: #000 !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+    &::-webkit-scrollbar {
+      background: transparent;
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #eb5e28;
+      border-radius: 100px;
+    }
+    li {
+      padding: 5px !important;
+      color: #fff !important;
+      &.highlight,
+      &:hover {
+        color: #000 !important;
+      }
+    }
+    .search {
+      background-color: #fff !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      padding: 5px !important;
+      margin: 0 !important;
+      list-style: none !important;
+      .search-emoji {
+        display: none !important;
+      }
+      input {
+        background-color: #fff !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        list-style: none !important;
+        color: #000 !important;
+      }
+    }
+  }
+}
+
+.select__menu {
+  z-index: 99999 !important;
+  background-color: #000 !important;
+}
+
+//html:not([lang='en']) {
+//  h1,
+//  h2,
+//  h3,
+//  h4,
+//  h5,
+//  p,
+//  li {
+//    transform: scale(0.85) !important;
+//    transform-origin: top left;
+//  }
+//  header {
+//    a {
+//      font-size: 12px !important;
+//    }
+//  }
+//}
+//html[lang='de'],
+//html[lang='it'] {
+//  header {
+//    nav {
+//      gap: 16px !important;
+//    }
+//    a {
+//      font-size: 12px !important;
+//    }
+//  }
+//}
+
+//html[lang='el'] {
+//  header {
+//    nav {
+//      gap: 12px !important;
+//    }
+//    a {
+//      font-size: 11px !important;
+//    }
+//  }
+//}
+
+.adaptive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-heading-title {
+  color: #000;
+  text-align: center;
+  font-family: var(--font-clash-grotesk, sans-serif);
+  font-size: 80px;
+  font-weight: 300;
+  line-height: 120%;
+  letter-spacing: -0.5px;
+
+  @include tablet {
+    font-size: 60px;
+  }
+
+  @include mobile {
+    font-size: 36px;
+  }
+}
+
+.main-heading-subtitle {
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.25px;
+
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+.custom_checkbox_label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom_checkbox_label_title {
+  display: inline-block;
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  letter-spacing: -0.5px;
+
+  a {
+    display: inline-block;
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+  }
+}
+
+.custom_checkbox_input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom_checkbox_element {
+  flex-shrink: 0;
+  width: 14px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* checked */
+.custom_checkbox_input:checked + .custom_checkbox_element {
+  background-color: #384ce3;
+}
+
+.custom_checkbox_input:checked + .custom_checkbox_element::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+html[lang="de"]{
+  @include tablet {
+    a{
+      font-size-adjust: 0.45;
+    }
+  }
+  
+}

@@ -1,0 +1,450 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+$card: #171717;
+$orange: #ff4500;
+$white: #e0e0e0;
+$white-50: rgba(255, 255, 255, 0.5);
+$white-25: rgba(255, 255, 255, 0.25);
+$white-10: rgba(255, 255, 255, 0.1);
+$muted: #666666;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &[data-variant='page'] {
+    gap: 32px;
+  }
+}
+
+.intro {
+  display: flex;
+  max-width: 680px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  margin: 0;
+  color: $white;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  white-space: pre-line;
+
+  @include mobile {
+    font-size: 32px;
+  }
+}
+
+.description {
+  margin: 0;
+  max-width: 560px;
+  color: $white;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 550px;
+  gap: 80px;
+  padding: 40px;
+  background: $card;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 20px;
+  }
+}
+
+.cardTitle {
+  color: $white;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  white-space: pre-line;
+
+  @include mobile {
+    font-size: 18px;
+  }
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.detailsRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldMultiline {
+  .fieldTextarea {
+    min-height: 56px;
+    resize: vertical;
+  }
+}
+
+.fieldLabel,
+.groupLabel {
+  color: $white-25;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fieldInput {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  &::placeholder {
+    color: $white-50;
+  }
+
+  &:focus {
+    color: $white;
+  }
+
+  &:focus::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.fieldTextarea {
+  overflow: hidden;
+}
+
+.fieldLine {
+  width: 100%;
+  height: 1px;
+  background: $white-10;
+}
+
+.field:focus-within .fieldLine {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.fieldError {
+  color: #ff8a65;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.choiceColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.choiceColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.choice {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.choiceInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choiceControl {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  border: 1px solid $white-50;
+  background: $white-25;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  &::after {
+    position: absolute;
+    inset: 2px;
+    background: transparent;
+    content: '';
+  }
+}
+
+.choiceControlRadio {
+  border-radius: 50%;
+
+  &::after {
+    border-radius: 50%;
+  }
+}
+
+.choiceControlChecked {
+  border-color: $orange;
+
+  &::after {
+    background: $orange;
+  }
+}
+
+.choiceLabel {
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.helperText {
+  margin: -16px 0 0;
+  color: $white-25;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.fileInput {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fileUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 136px;
+  border: 1px dashed $white-10;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.fileUploadIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.fileUploadText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fileUploadTitle {
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.fileUploadName {
+  color: $white-50;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.fileUploadMeta {
+  color: rgba(255, 255, 255, 0.1);
+  font-family: var(--font-space-mono), monospace;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px 112px;
+
+  @include tablet {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.footerCopy {
+  display: flex;
+  max-width: 560px;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footerTitle {
+  margin: 0;
+  color: #efefef;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.footerDescription {
+  margin: 0;
+  color: $muted;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.submitAction {
+  display: inline-flex;
+  width: fit-content;
+
+  :global(button) {
+    padding: 14px 24px !important;
+    line-height: 1 !important;
+  }
+}
+
+.submitContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.submitIcon {
+  flex: 0 0 auto;
+  color: currentColor;
+}
+
+.submitError {
+  margin: 0;
+  color: #ff8a65;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.successState {
+  display: flex;
+  min-height: 320px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.successTitle {
+  margin: 0;
+  color: $white;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 32px;
+  }
+}
+
+.successDescription {
+  margin: 0;
+  max-width: 640px;
+  color: $white;
+  font-family: var(--font-space-mono), monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.successAction {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 8px;
+
+  :global(button) {
+    padding: 14px 24px !important;
+    line-height: 1 !important;
+  }
+}

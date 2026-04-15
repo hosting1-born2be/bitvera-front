@@ -1,0 +1,35 @@
+import type { SVGProps } from 'react';
+
+export const LampChargeIcon = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
+      fill="none"
+      {...props}
+    >
+      <path
+        d="M20.0001 13.15L18.2168 16.25C17.8168 16.9334 18.1501 17.5 18.9334 17.5H21.0501C21.8501 17.5 22.1668 18.0667 21.7668 18.75L20.0001 21.85"
+        stroke="#FF4500"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13.8329 30.0667V28.1333C9.99961 25.8167 6.84961 21.3 6.84961 16.5C6.84961 8.25001 14.4329 1.78334 22.9996 3.65001C26.7663 4.48334 30.0663 6.98334 31.7829 10.4333C35.2663 17.4333 31.5996 24.8667 26.2163 28.1167V30.05C26.2163 30.5333 26.3996 31.65 24.6163 31.65H15.4329C13.5996 31.6667 13.8329 30.95 13.8329 30.0667Z"
+        stroke="#767676"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14.166 36.6666C17.9827 35.5833 22.016 35.5833 25.8327 36.6666"
+        stroke="#767676"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
