@@ -2,7 +2,14 @@
 
 import { useTranslations } from "next-intl";
 
-import { WEBSITE_EMAIL } from "@/shared/lib/constants/constants";
+import {
+  WEBSITE_COMPANY_NAME,
+  WEBSITE_COMPANY_NUMBER,
+  WEBSITE_EMAIL,
+  WEBSITE_OFFICE_ADDRESS,
+  WEBSITE_PHONE,
+  WEBSITE_REGISTERED_ADDRESS,
+} from "@/shared/lib/constants/constants";
 
 import styles from "./Footer.module.scss";
 
@@ -148,20 +155,18 @@ export const Footer = () => {
                 {t("officeLabel", { fallback: "Office" })}
               </p>
               <div className={styles.footer__column}>
-                <p className={styles.footer__text}>
-                  {t("officeAddress", {
-                    fallback:
-                      "Level 35, International Towers Sydney, 100 Barangaroo Ave, NSW 2000, Australia",
-                  })}
-                </p>
-                <a href="tel:+61283173582" className={styles.footer__link}>
-                  {t("officePhone", { fallback: "+61283173582" })}
-                </a>
+                <p className={styles.footer__text}>{WEBSITE_OFFICE_ADDRESS}</p>
                 <a
-                  href={`mailto:${WEBSITE_EMAIL || "info@bitvera.com"}`}
+                  href={`tel:${WEBSITE_PHONE}`}
                   className={styles.footer__link}
                 >
-                  {t("officeEmail", { fallback: "Email" })}
+                  {WEBSITE_PHONE}
+                </a>
+                <a
+                  href={`mailto:${WEBSITE_EMAIL}`}
+                  className={styles.footer__link}
+                >
+                  {WEBSITE_EMAIL}
                 </a>
               </div>
             </section>
@@ -187,10 +192,14 @@ export const Footer = () => {
 
               <div className={styles.footer__legal}>
                 <p className={styles.footer__legalText}>
-                  {t("legalPrimary", {
-                    fallback:
-                      "Bitvera.io is owned and operated by Digitex Corp Pty Ltd ACN 643 966 250 (Level 35, International Towers Sydney, 100 Barangaroo Ave, NSW 2000, Australia). Digital Currencies Exchange DCE No. 100713696-001",
-                  })}
+                  {t("legalPrimary1", {
+                    fallback: "Bitvera.io is owned and operated by",
+                  })}{" "}
+                  {WEBSITE_COMPANY_NAME} ({WEBSITE_REGISTERED_ADDRESS}).{" "}
+                  {t("legalPrimary2", {
+                    fallback: "Digital Currencies Exchange DCE No.",
+                  })}{" "}
+                  {WEBSITE_COMPANY_NUMBER}.
                 </p>
                 <p className={styles.footer__legalText}>
                   {t("legalSecondary", {

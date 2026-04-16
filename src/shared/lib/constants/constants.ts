@@ -1,5 +1,5 @@
-export const WEBSITE_EMAIL = 'info@bitvera.com';
-export const WEBSITE_PHONE = '';
+export const WEBSITE_EMAIL = 'Email';
+export const WEBSITE_PHONE = '+61283173582';
 
 export const LINKEDIN_URL = '#';
 export const FACEBOOK_URL = '#';
@@ -10,9 +10,12 @@ export const SIGN_UP_URL = '#';
 export const SIGN_IN_URL = '#';
 
 export const WEBSITE_REGISTERED_ADDRESS =
-  '2nd Floor College House, 17 King Edwards Road, Ruislip, London, United Kingdom, HA4 7AE';
+  'Level 35, International Towers Sydney, 100 Barangaroo Ave, NSW 2000, Australia';
 export const WEBSITE_OFFICE_ADDRESS =
-  "Office B, 4th Floor, 143–149 Great Portland Street, London W1W 6QN, UK";
+  "Level 35, International Towers Sydney, 100 Barangaroo Ave, NSW 2000, Australia";
+
+export const WEBSITE_COMPANY_NAME = 'Digitex Corp Pty Ltd ACN 643 966 250';
+export const WEBSITE_COMPANY_NUMBER = '100713696-001';
 
 export const WEBSITE_REGISTERED_ADDRESS_MAP =
   '';
