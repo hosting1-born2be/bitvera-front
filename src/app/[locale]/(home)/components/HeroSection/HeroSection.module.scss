@@ -4,7 +4,7 @@
   background: #efeef3 url("/images/home/bitvera/hero-bg-desktop.png") center top /
     cover no-repeat;
   color: #111111;
-  overflow: hidden;
+  //overflow: hidden;
   padding: 160px 0 60px;
 
   @include mobile {
@@ -112,7 +112,7 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 20px;
-  overflow: hidden;
+  // overflow: hidden;
   border-radius: 24px;
   background: url("/images/home/bitvera/hero-card-desktop.jpg") center / cover
     no-repeat;

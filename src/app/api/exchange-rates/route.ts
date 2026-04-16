@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 export const runtime = 'nodejs';
 
+const SUPPORTED_CURRENCIES = ['BTC', 'ETH', 'AUD', 'USD', 'EUR'] as const;
+
+type Currency = (typeof SUPPORTED_CURRENCIES)[number];
+
 type CoinbaseExchangeRatesResponse = {
   data?: {
     currency?: string;
@@ -11,17 +15,21 @@ type CoinbaseExchangeRatesResponse = {
 
 const COINBASE_EXCHANGE_RATES_URL = 'https://api.coinbase.com/v2/exchange-rates';
 
-const parseRate = (value: string | undefined) => {
+const parseRate = (value: string | undefined, { invert = false } = {}) => {
   if (!value) {
     return null;
   }
 
   const parsedValue = Number(value);
 
-  return Number.isFinite(parsedValue) && parsedValue > 0 ? parsedValue : null;
+  if (!Number.isFinite(parsedValue) || parsedValue <= 0) {
+    return null;
+  }
+
+  return invert ? 1 / parsedValue : parsedValue;
 };
 
-const getRates = async (baseCurrency: 'BTC' | 'ETH') => {
+const getRates = async (baseCurrency: Currency) => {
   const response = await fetch(`${COINBASE_EXCHANGE_RATES_URL}?currency=${baseCurrency}`, {
     headers: {
       Accept: 'application/json',
@@ -38,24 +46,31 @@ const getRates = async (baseCurrency: 'BTC' | 'ETH') => {
 
 export async function GET() {
   try {
-    const [btcResponse, ethResponse] = await Promise.all([getRates('BTC'), getRates('ETH')]);
+    const usdResponse = await getRates('USD');
 
-    const btcToEth = parseRate(btcResponse.data?.rates?.ETH);
-    const ethToBtc = parseRate(ethResponse.data?.rates?.BTC);
+    const ratesToUsd = SUPPORTED_CURRENCIES.reduce<Partial<Record<Currency, number>>>(
+      (accumulator, currency) => {
+        accumulator[currency] =
+          currency === 'USD'
+            ? 1
+            : parseRate(usdResponse.data?.rates?.[currency], { invert: true }) ?? undefined;
 
-    const normalizedBtcToEth =
-      btcToEth ?? (ethToBtc ? 1 / ethToBtc : null);
-    const normalizedEthToBtc =
-      ethToBtc ?? (btcToEth ? 1 / btcToEth : null);
+        return accumulator;
+      },
+      {},
+    );
 
-    if (!normalizedBtcToEth || !normalizedEthToBtc) {
-      throw new Error('Unable to resolve BTC/ETH exchange rates from Coinbase response.');
+    const hasAllSupportedRates = SUPPORTED_CURRENCIES.every(
+      (currency) => typeof ratesToUsd[currency] === 'number',
+    );
+
+    if (!hasAllSupportedRates) {
+      throw new Error('Unable to resolve supported exchange rates from Coinbase response.');
     }
 
     return NextResponse.json(
       {
-        btcToEth: normalizedBtcToEth,
-        ethToBtc: normalizedEthToBtc,
+        ratesToUsd,
         source: 'coinbase',
         updatedAt: new Date().toISOString(),
       },

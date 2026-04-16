@@ -11,32 +11,28 @@ import { Button } from '@/shared/ui/kit/button/Button';
 
 import styles from './HeroSection.module.scss';
 
-type Token = 'BTC' | 'ETH';
-type MenuField = 'spend' | 'receive' | null;
-
-type TokenConfig = {
-  symbol: Token;
-  icon: string;
-};
-
-type ExchangeRates = {
-  btcToEth: number;
-  ethToBtc: number;
-};
-
-const TOKENS: readonly TokenConfig[] = [
+const CURRENCIES = [
   { symbol: 'BTC', icon: '/images/home/bitvera/btc-icon.svg' },
   { symbol: 'ETH', icon: '/images/home/bitvera/eth-icon.svg' },
+  { symbol: 'AUD', icon: '/images/home/bitvera/aud-icon.svg' },
+  { symbol: 'USD', icon: '/images/home/bitvera/usd-icon.svg' },
+  { symbol: 'EUR', icon: '/images/home/bitvera/eur-icon.svg' },
 ] as const;
 
+type Currency = (typeof CURRENCIES)[number]['symbol'];
+type MenuField = 'spend' | 'receive' | null;
+
+type ExchangeRates = Record<Currency, number>;
+
 const INITIAL_RATES: ExchangeRates = {
-  btcToEth: 30.922510454674196,
-  ethToBtc: 1 / 30.922510454674196,
+  BTC: 65019.73,
+  ETH: 2102.2,
+  AUD: 0.651,
+  USD: 1,
+  EUR: 1.087,
 };
 const INITIAL_SPEND_AMOUNT = '60,021';
 const EXCHANGE_RATES_REFRESH_INTERVAL = 60_000;
-
-const getOppositeToken = (token: Token): Token => (token === 'BTC' ? 'ETH' : 'BTC');
 
 const sanitizeAmount = (value: string) => {
   const normalized = value.replace(/\./g, ',').replace(/[^\d,]/g, '');
@@ -62,28 +58,36 @@ const formatAmount = (value: number) => {
   return value.toFixed(3).replace('.', ',');
 };
 
-const convertAmount = (amount: number, spendToken: Token, rates: ExchangeRates) => {
-  if (spendToken === 'BTC') {
-    return amount * rates.btcToEth;
+const convertAmount = (
+  amount: number,
+  spendCurrency: Currency,
+  receiveCurrency: Currency,
+  ratesToUsd: ExchangeRates,
+) => {
+  const spendRate = ratesToUsd[spendCurrency];
+  const receiveRate = ratesToUsd[receiveCurrency];
+
+  if (!spendRate || !receiveRate) {
+    return 0;
   }
 
-  return amount * rates.ethToBtc;
+  return (amount * spendRate) / receiveRate;
 };
 
 export const HeroSection = () => {
   const t = useTranslations('homePage');
   const viewport = { once: true, amount: 0.2 };
-  const [spendToken, setSpendToken] = useState<Token>('BTC');
+  const [spendCurrency, setSpendCurrency] = useState<Currency>('BTC');
+  const [receiveCurrency, setReceiveCurrency] = useState<Currency>('ETH');
   const [spendAmount, setSpendAmount] = useState(INITIAL_SPEND_AMOUNT);
   const [openMenu, setOpenMenu] = useState<MenuField>(null);
   const [exchangeRates, setExchangeRates] = useState<ExchangeRates>(INITIAL_RATES);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const receiveToken = getOppositeToken(spendToken);
   const parsedSpendAmount = parseAmount(spendAmount);
   const receiveAmount = useMemo(
-    () => formatAmount(convertAmount(parsedSpendAmount, spendToken, exchangeRates)),
-    [exchangeRates, parsedSpendAmount, spendToken],
+    () => formatAmount(convertAmount(parsedSpendAmount, spendCurrency, receiveCurrency, exchangeRates)),
+    [exchangeRates, parsedSpendAmount, receiveCurrency, spendCurrency],
   );
 
   useEffect(() => {
@@ -99,20 +103,18 @@ export const HeroSection = () => {
           throw new Error(`Exchange rates request failed with status ${response.status}`);
         }
 
-        const payload = (await response.json()) as Partial<ExchangeRates>;
+        const payload = (await response.json()) as { ratesToUsd?: Partial<ExchangeRates> };
+        const nextRates = payload.ratesToUsd;
 
         if (
           !isMounted ||
-          typeof payload.btcToEth !== 'number' ||
-          typeof payload.ethToBtc !== 'number'
+          !nextRates ||
+          CURRENCIES.some((currency) => typeof nextRates[currency.symbol] !== 'number')
         ) {
           return;
         }
 
-        setExchangeRates({
-          btcToEth: payload.btcToEth,
-          ethToBtc: payload.ethToBtc,
-        });
+        setExchangeRates(nextRates as ExchangeRates);
       } catch (error) {
         console.error('Failed to refresh hero exchange rates:', error);
       }
@@ -166,26 +168,42 @@ export const HeroSection = () => {
     setSpendAmount(formatAmount(parseAmount(spendAmount)));
   };
 
-  const handleTokenSelect = (field: Exclude<MenuField, null>, nextToken: Token) => {
+  const swapCurrencies = () => {
+    setSpendAmount(receiveAmount);
+    setSpendCurrency(receiveCurrency);
+    setReceiveCurrency(spendCurrency);
+  };
+
+  const handleCurrencySelect = (field: Exclude<MenuField, null>, nextCurrency: Currency) => {
     if (field === 'spend') {
-      if (nextToken === spendToken) {
+      if (nextCurrency === spendCurrency) {
         setOpenMenu(null);
         return;
       }
 
-      setSpendAmount(receiveAmount);
-      setSpendToken(nextToken);
+      if (nextCurrency === receiveCurrency) {
+        swapCurrencies();
+        setOpenMenu(null);
+        return;
+      }
+
+      setSpendCurrency(nextCurrency);
       setOpenMenu(null);
       return;
     }
 
-    if (nextToken === receiveToken) {
+    if (nextCurrency === receiveCurrency) {
       setOpenMenu(null);
       return;
     }
 
-    setSpendAmount(receiveAmount);
-    setSpendToken(getOppositeToken(nextToken));
+    if (nextCurrency === spendCurrency) {
+      swapCurrencies();
+      setOpenMenu(null);
+      return;
+    }
+
+    setReceiveCurrency(nextCurrency);
     setOpenMenu(null);
   };
 
@@ -194,14 +212,14 @@ export const HeroSection = () => {
       key: 'spend',
       label: t('converterSpendLabel', { fallback: 'You spend' }),
       value: spendAmount,
-      token: spendToken,
+      currency: spendCurrency,
       editable: true,
     },
     {
       key: 'receive',
       label: t('converterReceiveLabel', { fallback: 'You get' }),
       value: receiveAmount,
-      token: receiveToken,
+      currency: receiveCurrency,
       editable: false,
     },
   ] as const;
@@ -223,7 +241,7 @@ export const HeroSection = () => {
               </h1>
 
               <p className={styles.heroSubtitle}>
-                {t('heroSubtitle', { fallback: 'Sign up and exchange BTC & ETH!' })}
+                {t('heroSubtitle', { fallback: 'Sign up and exchange BTC, ETH, AUD, USD & EUR!' })}
               </p>
 
               <div className={styles.buttonWrap}>
@@ -242,7 +260,7 @@ export const HeroSection = () => {
             >
               <div className={styles.exchangeCardHeader}>
                 <h2 className={styles.exchangeTitle}>
-                  {t('converterTitle', { fallback: 'Exchange BTC & ETH' })}
+                  {t('converterTitle', { fallback: 'Exchange BTC, ETH, AUD, USD & EUR' })}
                 </h2>
                 <p className={styles.exchangeDescription}>
                   {t('converterDescription', {
@@ -283,16 +301,16 @@ export const HeroSection = () => {
                             }
                             aria-haspopup="menu"
                             aria-expanded={openMenu === item.key}
-                            aria-label={`${item.label} ${item.token}`}
+                            aria-label={`${item.label} ${item.currency}`}
                           >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
-                              src={TOKENS.find((token) => token.symbol === item.token)?.icon}
+                              src={CURRENCIES.find((currency) => currency.symbol === item.currency)?.icon}
                               alt=""
                               aria-hidden="true"
                               className={styles.tokenIcon}
                             />
-                            <span className={styles.tokenText}>{item.token}</span>
+                            <span className={styles.tokenText}>{item.currency}</span>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img
                               src="/images/home/bitvera/caret-down.svg"
@@ -304,24 +322,24 @@ export const HeroSection = () => {
 
                           {openMenu === item.key ? (
                             <div className={styles.tokenMenu} role="menu">
-                              {TOKENS.map((token) => (
+                              {CURRENCIES.map((currency) => (
                                 <button
-                                  key={token.symbol}
+                                  key={currency.symbol}
                                   type="button"
                                   className={styles.tokenMenuItem}
-                                  data-active={token.symbol === item.token}
-                                  onClick={() => handleTokenSelect(item.key, token.symbol)}
+                                  data-active={currency.symbol === item.currency}
+                                  onClick={() => handleCurrencySelect(item.key, currency.symbol)}
                                   role="menuitemradio"
-                                  aria-checked={token.symbol === item.token}
+                                  aria-checked={currency.symbol === item.currency}
                                 >
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
                                   <img
-                                    src={token.icon}
+                                    src={currency.icon}
                                     alt=""
                                     aria-hidden="true"
                                     className={styles.tokenIcon}
                                   />
-                                  <span className={styles.tokenText}>{token.symbol}</span>
+                                  <span className={styles.tokenText}>{currency.symbol}</span>
                                 </button>
                               ))}
                             </div>
