@@ -5,7 +5,7 @@ import { setRequestLocale } from "next-intl/server";
 
 import { FormsPopupRenderer } from "@/features/forms";
 
-import { CookiePopup, Footer, Header } from "@/shared/ui/components";
+import { Footer, Header } from "@/shared/ui/components";
 
 import { routing } from "@/i18n/routing";
 
@@ -33,7 +33,6 @@ export default async function LocaleLayout({
       <Header />
       {children}
       <Footer />
-      <CookiePopup />
       <FormsPopupRenderer />
     </NextIntlClientProvider>
   );
