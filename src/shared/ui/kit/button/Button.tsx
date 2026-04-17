@@ -17,7 +17,17 @@ export const Button = ({
   target,
 }: {
   children: React.ReactNode;
-  variant: "filled" | "bordered";
+  variant:
+    | "filled"
+    | "bordered"
+    | "filledCompact"
+    | "borderedCompact"
+    | "bitveraDark"
+    | "bitveraLight"
+    | "headerLight"
+    | "headerDark"
+    | "headerMenu"
+    | "headerMenuLight";
   url?: string;
   type: "button" | "submit" | "link";
   service?: string;

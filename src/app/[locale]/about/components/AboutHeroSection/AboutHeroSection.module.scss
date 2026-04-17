@@ -1,0 +1,306 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  position: relative;
+  overflow: clip;
+  padding: 160px 0 60px;
+  background-color: #000000;
+  color: #f5f5f5;
+background-image: url("/images/about/bitvera/about-hero-bg.png");
+  background-size: cover;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+
+  @include mobile {
+    padding: 132px 0 0;
+  }
+}
+
+.heroLayout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-top: 44px;
+
+  @include tablet {
+    padding-top: 20px;
+  }
+}
+
+.heroTitle {
+  margin: 0;
+  color: #f5f5f5;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 64px;
+  }
+
+  @include mobile {
+    font-size: 52px;
+    line-height: 1.08;
+  }
+}
+
+.heroSubtitle {
+  max-width: 540px;
+  margin: 0;
+  color: #b9b9c3;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.promoCard {
+  position: relative;
+  align-self: end;
+  display: flex;
+  width: 556px;
+  min-height: 561px;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 20px;
+  border-radius: 24px;
+  background: #1c1c1c;
+  padding: 8px;
+  margin-top: 0;
+  box-shadow: none;
+  margin-left: auto;
+
+  @include tablet {
+    width: 100%;
+    max-width: 556px;
+    margin-top: 0;
+  }
+
+  @include mobile {
+    min-height: 0;
+  }
+}
+
+.promoPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  color: #f5f5f5;
+}
+
+.promoCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.promoTitle {
+  max-width: 430px;
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.promoDescription {
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.promoButtonWrap {
+  display: inline-flex;
+}
+
+.exchangeForm {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+}
+
+.exchangeFormInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exchangeField {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.42);
+  padding: 24px 40px;
+
+  @include mobile {
+    padding: 24px;
+  }
+}
+
+.fieldLabel {
+  color: rgba(0, 0, 0, 0.5);
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.fieldRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fieldInput,
+.fieldValue {
+  min-width: 0;
+  color: #131419;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.fieldInput {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  outline: none;
+
+  &::placeholder {
+    color: rgba(19, 20, 25, 0.55);
+  }
+}
+
+.tokenSelect {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.tokenPill {
+  display: inline-flex;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 8px;
+  color: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tokenMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 3;
+  display: flex;
+  min-width: 112px;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 8px;
+  box-shadow: 0 16px 32px rgba(19, 20, 25, 0.14);
+  backdrop-filter: blur(10px);
+
+  @include mobile {
+    left: 0;
+    right: auto;
+  }
+}
+
+.tokenMenuItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  padding: 8px 10px;
+  color: #131419;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &[data-active='true'],
+  &:hover {
+    background: rgba(22, 0, 211, 0.08);
+  }
+}
+
+.tokenIcon,
+.caretIcon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+}
+
+.tokenText {
+  color: #131419;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+@include mobile {
+  .heroLayout {
+    padding-bottom: 56px;
+  }
+
+  .promoPanel {
+    padding: 20px 16px 0;
+  }
+
+  .promoTitle {
+    font-size: 28px;
+  }
+
+  .promoDescription,
+  .fieldLabel {
+    font-size: 16px;
+  }
+
+  .fieldInput,
+  .fieldValue {
+    font-size: 30px;
+  }
+}

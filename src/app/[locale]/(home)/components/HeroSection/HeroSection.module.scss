@@ -81,29 +81,6 @@
 
 .buttonWrap {
   display: inline-flex;
-
-  :global(a),
-  :global(button) {
-    border: 2px solid #151515 !important;
-    border-radius: 70px !important;
-    background: #151515 !important;
-    box-shadow: none !important;
-    color: #ffffff !important;
-    font-family: var(--font-clash-grotesk), sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    line-height: 1.4 !important;
-    letter-spacing: -0.03em !important;
-    padding: 20px 32px !important;
-    text-transform: none !important;
-  }
-
-  :global(a:hover),
-  :global(button:hover) {
-    border-color: #151515 !important;
-    background: #151515 !important;
-    color: #ffffff !important;
-  }
 }
 
 .exchangeCard {

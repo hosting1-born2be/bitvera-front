@@ -150,7 +150,7 @@ export const RequestPopup = ({ service, isOpen, onClose, onReturnHome }: Request
 
               <div className={styles.submitDesktop}>
                 <Button
-                  variant="filled"
+                  variant="filledCompact"
                   type="button"
                   onClick={() => void form.handleSubmit(onSubmit)()}
                   disabled={isLoading}
@@ -206,7 +206,7 @@ export const RequestPopup = ({ service, isOpen, onClose, onReturnHome }: Request
               {error ? <p className={styles.submitError}>{error}</p> : null}
 
               <div className={styles.submitMobile}>
-                <Button variant="filled" type="submit" disabled={isLoading}>
+                <Button variant="filledCompact" type="submit" disabled={isLoading}>
                   <span className={styles.submitContent}>
                     <span>
                       {isLoading

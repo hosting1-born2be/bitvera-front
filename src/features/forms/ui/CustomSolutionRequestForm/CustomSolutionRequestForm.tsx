@@ -354,7 +354,7 @@ export const CustomSolutionRequestForm = ({
             })}
           </p>
           <div className={styles.successAction}>
-            <Button variant="filled" type="button" onClick={handleSuccessAction}>
+            <Button variant="filledCompact" type="button" onClick={handleSuccessAction}>
               <span className={styles.submitContent}>
                 <span>{successActionText}</span>
                 <PlusSmallIcon className={styles.submitIcon} aria-hidden="true" />
@@ -576,7 +576,7 @@ export const CustomSolutionRequestForm = ({
               </div>
 
               <div className={styles.submitAction}>
-                <Button variant="filled" type="submit" disabled={isLoading}>
+                <Button variant="filledCompact" type="submit" disabled={isLoading}>
                   <span className={styles.submitContent}>
                     <span>{isLoading ? loadingText : submitText}</span>
                     <PlusSmallIcon className={styles.submitIcon} aria-hidden="true" />

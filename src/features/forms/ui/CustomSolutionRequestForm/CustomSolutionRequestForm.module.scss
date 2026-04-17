@@ -379,11 +379,6 @@ $muted: #666666;
 .submitAction {
   display: inline-flex;
   width: fit-content;
-
-  :global(button) {
-    padding: 14px 24px !important;
-    line-height: 1 !important;
-  }
 }
 
 .submitContent {
@@ -442,9 +437,4 @@ $muted: #666666;
   display: inline-flex;
   width: fit-content;
   margin-top: 8px;
-
-  :global(button) {
-    padding: 14px 24px !important;
-    line-height: 1 !important;
-  }
 }

@@ -44,7 +44,7 @@ export const ServiceCard = ({
         </div>
 
         <div className={styles.buttonWrap}>
-          <Button variant="bordered" type="button" onClick={() => openRequest(title)}>
+          <Button variant="borderedCompact" type="button" onClick={() => openRequest(title)}>
             <span className={styles.buttonContent}>
               <span>{ctaLabel}</span>
               <PlusSmallIcon className={styles.buttonIcon} aria-hidden="true" />

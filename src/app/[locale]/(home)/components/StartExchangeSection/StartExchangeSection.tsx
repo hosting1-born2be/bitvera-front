@@ -48,7 +48,7 @@ export const StartExchangeSection = () => {
             </h2>
 
             <div className={styles.buttonWrap}>
-              <Button variant="filled" type="link" url={SIGN_UP_URL}>
+              <Button variant="bitveraDark" type="link" url={SIGN_UP_URL}>
                 <span>{t("startCta", { fallback: "Create a profile" })}</span>
               </Button>
             </div>

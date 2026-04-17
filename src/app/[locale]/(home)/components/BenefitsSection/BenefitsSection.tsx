@@ -84,7 +84,7 @@ export const BenefitsSection = () => {
             viewport={viewport}
             custom={0.24}
           >
-            <Button variant="filled" url={SIGN_UP_URL} type="link">
+            <Button variant="bitveraDark" url={SIGN_UP_URL} type="link">
               {t('workCta', { fallback: 'Create a profile' })}
             </Button>
           </motion.div>

@@ -1,0 +1,114 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  position: relative;
+  overflow: clip;
+  background: #167af6 url('/images/how-to-exchange/bitvera/wallet-bg-desktop.png') center /
+    cover no-repeat;
+  color: #f5f5f5;
+
+  @include mobile {
+    background-image: url('/images/how-to-exchange/bitvera/wallet-bg-mobile.png');
+  }
+}
+
+.sectionInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 700px);
+  gap: 40px;
+  align-items: center;
+  padding: 80px 0;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title,
+.description {
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-style: normal;
+}
+
+.title {
+  color: #f5f5f5;
+  font-size: 96px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+  @include desktop {
+    font-size: 84px;
+  }
+
+  @include tablet {
+    font-size: 72px;
+  }
+
+  @include mobile {
+    font-size: 60px;
+    line-height: 1.1;
+  }
+}
+
+.description {
+  max-width: 580px;
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  white-space: pre-line;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  min-height: 200px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.coinIcon {
+  width: 98px;
+  height: 98px;
+  flex: 0 0 auto;
+}
+
+.bitcoinShell {
+  display: flex;
+  width: 98px;
+  height: 98px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(236, 239, 240, 0.5);
+  padding: 19px;
+}
+
+.bitcoinIcon {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 auto;
+}

@@ -77,12 +77,6 @@ $white-25: rgba(255, 255, 255, 0.25);
 .buttonWrap {
   display: inline-flex;
   width: fit-content;
-
-  :global(a),
-  :global(button) {
-    padding: 14px 24px !important;
-    line-height: 1;
-  }
 }
 
 .buttonContent {

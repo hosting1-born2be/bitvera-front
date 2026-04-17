@@ -25,8 +25,8 @@ type HeaderNavItem = {
 
 const navigationItems: readonly HeaderNavItem[] = [
   { key: "home", href: "/" },
-  { key: "about", href: "/#about" },
-  { key: "howToExchange", href: "/#exchange" },
+  { key: "about", href: "/about" },
+  { key: "howToExchange", href: "/how-to-exchange" },
   { key: "affiliateProgram", href: "/#affiliate" },
   { key: "faq", href: "/#faq" },
   { key: "blog", href: "/#blog" },
@@ -38,6 +38,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("header");
+  const isDarkRoute = pathname === "/about" || pathname === "/how-to-exchange";
 
   useEffect(() => {
     setTimeout(() => {
@@ -88,7 +89,9 @@ export const Header = () => {
       </div>
 
       <header
-        className={`${styles.header} ${isScrolled ? styles.isScrolled : ""}`}
+        className={`${styles.header} ${isScrolled ? styles.isScrolled : ""} ${
+          isDarkRoute && !isScrolled ? styles.isDark : ""
+        }`}
         data-mobile-open={isMobileMenuOpen}
       >
         <div className="container">
@@ -100,28 +103,22 @@ export const Header = () => {
 
               <div className={styles.header__actions}>
                 <div className={styles.header__desktopActions}>
-                  <div
-                    className={`${styles.header__buttonWrap} ${styles["header__buttonWrap--light"]}`}
-                  >
-                    <Button variant="filled" type="link" url={SIGN_UP_URL}>
+                  <div className={styles.header__buttonWrap}>
+                    <Button variant="headerLight" type="link" url={SIGN_UP_URL}>
                       <span>{t("signUp", { fallback: "Sign Up" })}</span>
                     </Button>
                   </div>
 
-                  <div
-                    className={`${styles.header__buttonWrap} ${styles["header__buttonWrap--dark"]}`}
-                  >
-                    <Button variant="filled" type="link" url={SIGN_IN_URL}>
+                  <div className={styles.header__buttonWrap}>
+                    <Button variant="headerDark" type="link" url={SIGN_IN_URL}>
                       <span>{t("logIn", { fallback: "Log In" })}</span>
                     </Button>
                   </div>
                 </div>
 
-                <div
-                  className={`${styles.header__buttonWrap} ${styles["header__buttonWrap--menu"]}`}
-                >
+                <div className={styles.header__buttonWrap}>
                   <Button
-                    variant="bordered"
+                    variant={isDarkRoute && !isScrolled ? "headerMenuLight" : "headerMenu"}
                     type="button"
                     onClick={toggleMobileMenu}
                   >
@@ -157,18 +154,14 @@ export const Header = () => {
                 </nav>
 
                 <div className={styles.header__mobileButtons}>
-                  <div
-                    className={`${styles.header__buttonWrap} ${styles["header__buttonWrap--light"]}`}
-                  >
-                    <Button variant="filled" type="link" url={SIGN_UP_URL}>
+                  <div className={styles.header__buttonWrap}>
+                    <Button variant="headerLight" type="link" url={SIGN_UP_URL}>
                       <span>{t("signUp", { fallback: "Sign Up" })}</span>
                     </Button>
                   </div>
 
-                  <div
-                    className={`${styles.header__buttonWrap} ${styles["header__buttonWrap--dark"]}`}
-                  >
-                    <Button variant="filled" type="link" url={SIGN_IN_URL}>
+                  <div className={styles.header__buttonWrap}>
+                    <Button variant="headerDark" type="link" url={SIGN_IN_URL}>
                       <span>{t("logIn", { fallback: "Log In" })}</span>
                     </Button>
                   </div>

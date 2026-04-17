@@ -38,7 +38,7 @@ export const InstantExchangeSection = () => {
               </p>
 
               <div className={styles.buttonWrap}>
-                <Button variant="filled" url={SIGN_UP_URL} type="link">
+                <Button variant="bitveraDark" url={SIGN_UP_URL} type="link">
                   {t('plansCta', { fallback: 'Exchange now' })}
                 </Button>
               </div>

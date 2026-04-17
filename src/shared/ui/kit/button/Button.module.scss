@@ -1,28 +1,39 @@
 @use '@/shared/lib/styles/mixin.scss' as *;
 
 .button {
-  border-radius: 2px;
-  border: 1px solid;
   display: inline-flex;
-  padding: 14px 24px;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  border: 1px solid;
+  border-radius: 2px;
+  background: transparent;
+  padding: 14px 24px;
   font-family: var(--font-family-Font-5, "Space Mono");
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
-  line-height: 140%; /* 14px */
+  line-height: 1.4;
   letter-spacing: 0.1px;
+  text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:disabled {
+    opacity: 0.6;
+  }
 
   &.de,
   &.it {
-    font-size: 16px !important;
-    padding: 16px 32px !important;
+    font-size: 16px;
+    padding: 16px 32px;
+
     span {
-      font-size: 16px !important;
+      font-size: 16px;
     }
   }
 
@@ -54,6 +65,161 @@
           fill: #fff;
         }
       }
+    }
+  }
+
+  &.filledCompact {
+    border-radius: 2px;
+    border-color: var(--Light-Orange, #ff4500);
+    background: var(--Light-Orange, #ff4500);
+    padding: 14px 24px;
+    color: #fff;
+    line-height: 1;
+
+    &:hover {
+      border-color: var(--Light-Orange, #ff4500);
+      background: transparent;
+      color: var(--Light-Orange, #ff4500);
+
+      svg {
+        path {
+          fill: var(--Light-Orange, #ff4500);
+        }
+      }
+    }
+  }
+
+  &.borderedCompact {
+    border-color: var(--Light-Orange, #ff4500);
+    background: transparent;
+    padding: 14px 24px;
+    color: var(--Light-Orange, #ff4500);
+    line-height: 1;
+
+    &:hover {
+      background: var(--Light-Orange, #ff4500);
+      color: #fff;
+
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  &.bitveraDark {
+    border: 2px solid #151515;
+    border-radius: 70px;
+    background: #151515;
+    box-shadow: none;
+    padding: 20px 32px;
+    color: #ffffff;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-transform: none;
+
+    &:hover {
+      border-color: #151515;
+      background: #151515;
+      color: #ffffff;
+    }
+  }
+
+  &.bitveraLight {
+    border: 2px solid #f5f5f5;
+    border-radius: 70px;
+    background: #f5f5f5;
+    box-shadow: none;
+    padding: 20px 32px;
+    color: #0d0d0d;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-transform: none;
+
+    &:hover {
+      border-color: #f5f5f5;
+      background: #f5f5f5;
+      color: #0d0d0d;
+    }
+  }
+
+  &.headerLight,
+  &.headerDark,
+  &.headerMenu,
+  &.headerMenuLight {
+    border-radius: 70px;
+    box-shadow: none;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-transform: none;
+  }
+
+  &.headerLight {
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.75);
+    padding: 20px 34px;
+    color: #151515;
+    backdrop-filter: blur(8.75px);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.75);
+      color: #151515;
+    }
+  }
+
+  &.headerDark {
+    border: 2px solid #333333;
+    background: #111111;
+    padding: 20px 32px;
+    color: #f5f5f5;
+
+    &:hover {
+      border-color: #333333;
+      background: #111111;
+      color: #f5f5f5;
+    }
+  }
+
+  &.headerMenu,
+  &.headerMenuLight {
+    gap: 6px;
+    border: none;
+    background: transparent;
+    padding: 20px 0 20px 32px;
+
+    &:hover {
+      background: transparent;
+    }
+
+    @include mobile {
+      padding: 20px 0 20px 24px;
+    }
+  }
+
+  &.headerMenu {
+    color: #151515;
+
+    &:hover {
+      color: #151515;
+    }
+  }
+
+  &.headerMenuLight {
+    color: #f5f5f5;
+
+    &:hover {
+      color: #f5f5f5;
     }
   }
 }

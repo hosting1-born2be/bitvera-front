@@ -6,73 +6,25 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import { SIGN_UP_URL } from '@/shared/lib/constants/constants';
+import {
+  CURRENCIES,
+  EXCHANGE_RATES_REFRESH_INTERVAL,
+  INITIAL_RATES,
+  INITIAL_SPEND_AMOUNT,
+  type Currency,
+  type ExchangeRates,
+  convertAmount,
+  formatAmount,
+  hasValidExchangeRates,
+  parseAmount,
+  sanitizeAmount,
+} from '@/shared/lib/helpers/exchangeConverter';
 import { fadeInLeft, fadeInRight } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
 import styles from './HeroSection.module.scss';
 
-const CURRENCIES = [
-  { symbol: 'BTC', icon: '/images/home/bitvera/btc-icon.svg' },
-  { symbol: 'ETH', icon: '/images/home/bitvera/eth-icon.svg' },
-  { symbol: 'AUD', icon: '/images/home/bitvera/aud-icon.svg' },
-  { symbol: 'USD', icon: '/images/home/bitvera/usd-icon.svg' },
-  { symbol: 'EUR', icon: '/images/home/bitvera/eur-icon.svg' },
-] as const;
-
-type Currency = (typeof CURRENCIES)[number]['symbol'];
 type MenuField = 'spend' | 'receive' | null;
-
-type ExchangeRates = Record<Currency, number>;
-
-const INITIAL_RATES: ExchangeRates = {
-  BTC: 65019.73,
-  ETH: 2102.2,
-  AUD: 0.651,
-  USD: 1,
-  EUR: 1.087,
-};
-const INITIAL_SPEND_AMOUNT = '60,021';
-const EXCHANGE_RATES_REFRESH_INTERVAL = 60_000;
-
-const sanitizeAmount = (value: string) => {
-  const normalized = value.replace(/\./g, ',').replace(/[^\d,]/g, '');
-  const [integerPart = '', ...fractionParts] = normalized.split(',');
-  const fractionPart = fractionParts.join('').slice(0, 3);
-
-  if (!integerPart && !fractionPart) {
-    return '';
-  }
-
-  return fractionPart ? `${integerPart || '0'},${fractionPart}` : integerPart;
-};
-
-const parseAmount = (value: string) => {
-  if (!value) {
-    return 0;
-  }
-
-  return Number(value.replace(',', '.')) || 0;
-};
-
-const formatAmount = (value: number) => {
-  return value.toFixed(3).replace('.', ',');
-};
-
-const convertAmount = (
-  amount: number,
-  spendCurrency: Currency,
-  receiveCurrency: Currency,
-  ratesToUsd: ExchangeRates,
-) => {
-  const spendRate = ratesToUsd[spendCurrency];
-  const receiveRate = ratesToUsd[receiveCurrency];
-
-  if (!spendRate || !receiveRate) {
-    return 0;
-  }
-
-  return (amount * spendRate) / receiveRate;
-};
 
 export const HeroSection = () => {
   const t = useTranslations('homePage');
@@ -103,18 +55,15 @@ export const HeroSection = () => {
           throw new Error(`Exchange rates request failed with status ${response.status}`);
         }
 
-        const payload = (await response.json()) as { ratesToUsd?: Partial<ExchangeRates> };
-        const nextRates = payload.ratesToUsd;
+        const payload = (await response.json()) as {
+          ratesToUsd?: Partial<ExchangeRates>;
+        };
 
-        if (
-          !isMounted ||
-          !nextRates ||
-          CURRENCIES.some((currency) => typeof nextRates[currency.symbol] !== 'number')
-        ) {
+        if (!isMounted || !hasValidExchangeRates(payload.ratesToUsd)) {
           return;
         }
 
-        setExchangeRates(nextRates as ExchangeRates);
+        setExchangeRates(payload.ratesToUsd);
       } catch (error) {
         console.error('Failed to refresh hero exchange rates:', error);
       }
@@ -245,7 +194,7 @@ export const HeroSection = () => {
               </p>
 
               <div className={styles.buttonWrap}>
-                <Button variant="filled" url={SIGN_UP_URL} type="link">
+                <Button variant="bitveraDark" url={SIGN_UP_URL} type="link">
                   {t('heroPrimaryCta', { fallback: 'Get Started' })}
                 </Button>
               </div>

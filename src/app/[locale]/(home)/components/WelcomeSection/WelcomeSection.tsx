@@ -35,7 +35,7 @@ export const WelcomeSection = () => {
 
           <div className={styles.buttonWrap}>
             <Button
-              variant="filled"
+              variant="bitveraDark"
               type="button"
               onClick={() =>
                 document.getElementById('bitvera-safety')?.scrollIntoView({

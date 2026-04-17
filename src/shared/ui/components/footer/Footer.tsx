@@ -35,8 +35,8 @@ type FooterLinkItem = {
 const menuColumns: readonly FooterLinkItem[][] = [
   [
     { key: "home", href: "/" },
-    { key: "about", href: "/#about" },
-    { key: "howToExchange", href: "/#exchange" },
+    { key: "about", href: "/about" },
+    { key: "howToExchange", href: "/how-to-exchange" },
     { key: "affiliateProgram", href: "/#affiliate" },
   ],
   [
