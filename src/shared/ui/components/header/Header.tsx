@@ -167,14 +167,14 @@ export const Header = () => {
                   </div>
                 </div>
 
-                {WEBSITE_EMAIL ? (
+                {/**WEBSITE_EMAIL ? (
                   <a
                     href={`mailto:${WEBSITE_EMAIL}`}
                     className={styles.header__mobileMeta}
                   >
                     {WEBSITE_EMAIL}
                   </a>
-                ) : null}
+                ) : null */}
               </div>
             </div>
           </div>
