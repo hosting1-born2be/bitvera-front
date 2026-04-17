@@ -1,0 +1,49 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  overflow: clip;
+  padding: 80px 0;
+  background:
+    #205dff url('/images/affiliate-program/bitvera/form-bg-desktop.png') center / cover
+      no-repeat;
+
+  @include mobile {
+    padding: 80px 0;
+    background-image: url('/images/affiliate-program/bitvera/form-bg-mobile.png');
+  }
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 700px;
+  gap: 40px;
+  align-items: start;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+}
+
+.title {
+  margin: 0;
+  color: #f5f5f5;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+
+  @include tablet {
+    max-width: 720px;
+  }
+
+  @include mobile {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+}
+
+.formWrap {
+  min-width: 0;
+}

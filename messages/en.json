@@ -47,27 +47,46 @@
     "solutionsCta": "More about safety"
   },
   "aboutPage": {
+    "cardSpendLabel": "You spend",
+    "cardReceiveLabel": "You get",
     "heroTitle": "We’re glad you’re here",
     "heroSubtitle": "Our Bitvera family was founded with a great purpose: to provide our customers with a new level of cryptocurrency exchanging experience.",
-    "heroCta": "Get Started",
     "cardTitle": "Cryptocurrency has never been that simple",
     "cardDescription": "Sign up and exchange BTC & ETH!",
     "cardCta": "Get Started",
-    "cardSpendLabel": "You spend",
-    "cardReceiveLabel": "You get",
     "missionTitle": "We strive",
     "missionDescription": "to implement significant efficiency, security, and convenience features in our crypto exchanging platform.\nThe technology we utilise allows for quick and easy crypto buying and selling in a completely worry-free environment.",
+    "professionalsItemOne": "Bitvera is owned and maintained by a company with an extra qualified team and years of experience in the industry.",
+    "professionalsItemTwo": "We offer the perfect exchange solution for you, whether you are new to the world of cryptocurrencies or an experienced user.",
     "professionalsTitle": "Work with professionals",
     "professionalsCta": "Join Bitvera",
-    "professionalsItemOne": "Bitvera is owned and maintained by a company with an extra qualified team and years of experience in the industry.",
-    "professionalsItemTwo": "We offer the perfect exchange solution for you, whether you are new to the world of cryptocurrencies or an experienced user."
+    "heroCta": "Get Started"
   },
-  "howToExchangePage": {
-    "heroTitle": "How to Start Exchanging Cryptocurrency",
-    "heroSubtitle": "Bitvera currently offers BTC and ETH for exchange.",
-    "processTitle": "Exchanging process",
-    "processDescription": "Making a crypto exchange is easy.\nYou just need to follow these simple steps:",
-    "processCta": "Join Bitvera",
+  "affiliateProgramPage": {
+    "ctaTitle": "Start earning today",
+    "ctaBodyLineOne": "We look forward to partnering with you!",
+    "ctaBodyLineTwo": "Please feel free to contact the Bitvera Affiliate Team with any questions. Generally, we respond to email requests within 24 hours.",
+    "ctaBodyLineThree": "Don't hesitate to contact our live chat customer support if you need urgent assistance.",
+    "formTitle": "Create your affiliate profile and get an individual referral link",
+    "heroTitle": "Earn with our affiliate program when you bring new clients to Bitvera",
+    "heroSubtitle": "We aim to provide customers with maximum advantages, focusing on offering effective and competitive partnership programs.",
+    "stepsTitle": "4 easy steps to start earning with Bitvera",
+    "introCardPrimaryText": "You will get a volume-based rebate for every completed exchange transaction of customers you bring to us.",
+    "introCardSecondaryTitle": "We're glad you're here",
+    "introCardSecondaryText": "Your privacy and security are our main objectives.",
+    "introCardTertiaryText": "Bitvera affiliate program is designed for customers with a strong online presence, from website owners, social media influencers, and affiliate marketers to SEO professionals.",
+    "stepOneTitle": "Registration",
+    "stepOneBody": "Please complete the application form provided below. Our Bitvera team will carefully assess your request. Upon pre-approval of your application, you will receive an affiliate service agreement and a list of KYB documents necessary to verify your business. Additionally, we will provide you with an individual referral link, an affiliate dashboard, and various marketing materials and guidelines to assist you in getting started.",
+    "stepTwoTitle": "Verification",
+    "stepTwoBody": "Kindly submit a signed service agreement and the necessary documents to verify your business. Additionally, we request that you provide us with a comprehensive list of channels and resources for promoting our brand (such as websites, blogs, social influencers, networking platforms, etc.). Please include an example of promotional material featuring your referral link. Your submitted documents, channels, and materials will be carefully reviewed within 48 hours. We reserve the right to approve, disapprove, or suggest any necessary changes.",
+    "stepThreeTitle": "Promotion",
+    "stepThreeBody": "Start introducing new customers to Bitvera with a dedicated link. Our dedicated team can collaborate and create customised offerings for your audience. Our Compliance and Support team oversees the KYC verification process for each customer order. You just link to Bitvera in articles, create new content, or place ads on your website.",
+    "stepFourTitle": "Getting rewarded!",
+    "stepFourBody": "By promoting Bitvera and using your referral link, you will earn a commission from each exchange transaction completed by verified customers who have registered through your efforts. The remuneration offered is highly appealing, and there is no limit to how much you can earn - the more customers you refer, the greater your potential earnings. You can conveniently monitor transaction volumes through your affiliate dashboard. Commissions are paid out every Monday unless you have any inquiries or corrections to be addressed, which you can communicate to our dedicated affiliate manager. Please note that only affiliates who have completed KYB verification can receive affiliate commissions."
+  },
+  "contactUsPage": {
+    "heroTitle": "Support service",
+    "heroSubtitle": "Contact us if you have any technical questions! We are always here for you.",
     "stepOneTitle": "Register and create a profile",
     "stepOneBody": "If you don't have a Bitvera profile yet, now is the time to register. It's free and doesn't take much time. You just need to fill out the form and confirm your registration.",
     "stepTwoTitle": "Pass the quick verification",
@@ -79,10 +98,135 @@
     "stepFourBody": "We focus on Bitcoin and Ethereum to deliver a simple and reliable exchange experience.",
     "stepFiveTitle": "Wait for the transaction to be approved!",
     "stepFiveBody": "Don't worry. It might take a while.",
+    "processTitle": "Exchanging process",
+    "processDescription": "Making a crypto exchange is easy.\nYou just need to follow these simple steps:",
+    "processCta": "Join Bitvera",
     "walletTitle": "Wallet",
-    "walletDescription": "We don't store any cryptocurrencies or fiat currency.\nWe are only a crypto exchange.\nWe recommend (but do not insist) to open wallets on the sites below:",
+    "walletDescription": "We don't store any cryptocurrencies or fiat currency.\nWe are only a crypto exchange.\nWe recommend (but do not insist) to open wallets on the sites below:"
+  },
+  "howToExchange": {
+    "heroTitle": "How to Start Exchanging Cryptocurrency",
+    "heroSubtitle": "Bitvera currently offers BTC and ETH for exchange.",
+    "stepOneTitle": "Register and create a profile",
+    "stepOneBody": "If you don't have a Bitvera profile yet, now is the time to register. It's free and doesn't take much time. You just need to fill out the form and confirm your registration.",
+    "stepTwoTitle": "Pass the quick verification",
+    "stepTwoBody": "Verification differs depending on the amount of the transaction. You can find our terms and verification requirements below.",
+    "stepThreeTitle": "Link your wallet to Bitvera",
+    "stepThreeBody": "We don't store any cryptocurrencies or fiat currency. To buy cryptocurrency, you need to have a wallet to store it.",
+    "stepThreeBodySecondary": "We recommend (but do not insist) to open wallets on the official website of Bitcoin or Ethereum to open up your designated virtual wallet, or you can get a multi-function e-wallet that can store different cryptocurrencies. If you already have an e-wallet, link it to your Bitvera profile.",
+    "stepFourTitle": "Choose the crypto and how much you want to buy/sell",
+    "stepFourBody": "We focus on Bitcoin and Ethereum to deliver a simple and reliable exchange experience.",
+    "stepFiveTitle": "Wait for the transaction to be approved!",
+    "stepFiveBody": "Don't worry. It might take a while.",
+    "processTitle": "Exchanging process",
+    "processDescription": "Making a crypto exchange is easy.\nYou just need to follow these simple steps:",
+    "processCta": "Join Bitvera",
     "walletEthereumAlt": "Ethereum wallet icon",
-    "walletBitcoinAlt": "Bitcoin wallet icon"
+    "walletBitcoinAlt": "Bitcoin wallet icon",
+    "walletTitle": "Wallet",
+    "walletDescription": "We don't store any cryptocurrencies or fiat currency.\nWe are only a crypto exchange.\nWe recommend (but do not insist) to open wallets on the sites below:"
+  },
+  "qaPage": {
+    "categories": {
+      "paymentMethods": {
+        "title": "Payment Methods",
+        "items": {
+          "wireTransfer": {
+            "question": "Can I pay with a wire transfer?",
+            "answer": "Yes, you can purchase digital currency through a bank wire transfer."
+          }
+        }
+      },
+      "supportedCryptocurrencies": {
+        "title": "Supported Cryptocurrencies",
+        "items": {
+          "supported": {
+            "question": "What cryptocurrencies are supported on Bitvera?",
+            "answer": "Currently, we support Bitcoin and Ethereum only."
+          }
+        }
+      },
+      "walletsAndVerification": {
+        "title": "Wallets and Transaction Verification",
+        "items": {
+          "wallet": {
+            "question": "From where can I obtain a Bitcoin or Ethereum wallet?",
+            "answer": "Bitvera does not provide wallets. We are here to send coins to the wallet you choose."
+          },
+          "transaction": {
+            "question": "How can I ensure the coins were sent to my chosen wallet?",
+            "answer": "You can verify the transaction records by checking http://blockchain.info/address/YOURADDRESS. It will display the coins sent to or from your wallet address."
+          }
+        }
+      },
+      "sellingAndRate": {
+        "title": "Selling Crypto and Exchange Rate",
+        "items": {
+          "sell": {
+            "question": "Is it possible to sell cryptocurrency through Bitvera?",
+            "answer": "Yes, it is. You can sell Bitcoin and Ethereum through Bitvera and receive FIAT currency directly into your bank profile."
+          },
+          "factors": {
+            "question": "What factors determine the exchange rate?",
+            "answer": "Bitvera aims to execute transactions at or close to the prevailing market exchange rate, determined by liquidity providers such as kraken.com Cryptocurrency Exchange."
+          },
+          "when": {
+            "question": "At what point is the exchange rate determined?",
+            "answer": "The exchange rate is determined once we receive the payment and process the order."
+          }
+        }
+      },
+      "deliveryAndVerification": {
+        "title": "Delivery and Verification Process",
+        "items": {
+          "delivery": {
+            "question": "Do I receive the cryptocurrency immediately after making the payment?",
+            "answer": "No, you don't. The crypto is sent to your wallet only after completing a full KYC verification and upon approval and confirmation of your payment and wallet address."
+          },
+          "id": {
+            "question": "Is it possible to buy crypto without uploading my ID?",
+            "answer": "No, it isn't. You must upload your verification documents to purchase crypto."
+          }
+        }
+      },
+      "kycAndPersonalInformation": {
+        "title": "KYC and Personal Information",
+        "items": {
+          "kycDocument": {
+            "question": "What is the purpose of signing the KYC document?",
+            "answer": "KYC (Know Your Customer) is a legal requirement for buying a certain amount of cryptocurrency. We strictly adhere to regulatory rules and request KYC for every purchase."
+          },
+          "personalInformation": {
+            "question": "Why is it necessary to provide my personal information and documents?",
+            "answer": "To comply with Regulatory Guidance and ensure the highest security and privacy standards, we require the completion of a successful “Know Your Client” procedure. This helps protect your profile, prevent fraud, and maintain a secure financial service."
+          },
+          "cardDetails": {
+            "question": "Are my credit card details stored in the Bitvera system?",
+            "answer": "Your credit/debit card details are not saved in our system."
+          }
+        }
+      },
+      "orderAndSupport": {
+        "title": "Order and Support",
+        "items": {
+          "timeframe": {
+            "question": "What is the expected timeframe for the cryptocurrency to be delivered to my wallet?",
+            "answer": "We make commercially reasonable efforts to settle exchange orders as soon as possible, typically within five days after submitting a transaction order and completing full KYC verification."
+          },
+          "cancel": {
+            "question": "Is there an option to cancel my order?",
+            "answer": "Orders can only be cancelled before Bitvera executes the exchange transaction. Please get in touch with our support at [EMAIL] for assistance."
+          },
+          "supportHours": {
+            "question": "What are the working hours of your support team?",
+            "answer": "Our dedicated customer support is ready to assist you Monday to Friday from 10:00 to 2:00 and Saturday and Sunday from 10:00 to 18:00 (UTC/GMT +2:00)."
+          }
+        }
+      }
+    },
+    "navigationLabel": "Q&A Categories",
+    "heroTitle": "This is our little library",
+    "heroSubtitle": "Here you can find answers to the most common questions you may have."
   },
   "contactsForm": {
     "name": "Name",
@@ -102,6 +246,68 @@
     "cta": "Head Back Home"
   },
   "forms": {
+    "affiliateForm": {
+      "errors": {
+        "required": "This field is required.",
+        "emailInvalid": "Please provide a valid email address.",
+        "websiteInvalid": "Please provide a valid website address."
+      },
+      "fields": {
+        "name": {
+          "label": "Name:",
+          "placeholder": "Enter your full name"
+        },
+        "username": {
+          "label": "Username:",
+          "placeholder": "Enter your username"
+        },
+        "companyName": {
+          "label": "Company name:",
+          "placeholder": "Enter your company name"
+        },
+        "companyCountry": {
+          "label": "Company country:",
+          "placeholder": "Enter your company country"
+        },
+        "website": {
+          "label": "Website:",
+          "placeholder": "Enter your website"
+        },
+        "geoOfCustomers": {
+          "label": "GEO of customers:",
+          "placeholder": "Enter your GEO of customers"
+        },
+        "email": {
+          "label": "Email:",
+          "placeholder": "Enter your email"
+        },
+        "password": {
+          "label": "Password:",
+          "placeholder": "Enter your password"
+        },
+        "positionInCompany": {
+          "label": "Your position in the company:",
+          "placeholder": "Enter your position in the company"
+        },
+        "businessActivity": {
+          "label": "Your business activity:",
+          "placeholder": "Enter your business activity"
+        },
+        "yearsOnMarket": {
+          "label": "Years on the market:",
+          "placeholder": "Enter your company years on the market"
+        },
+        "plannedVolume": {
+          "label": "The planned amount of customers or volume:",
+          "placeholder": "Enter your planned amount of volume"
+        }
+      },
+      "sending": "Sending...",
+      "submit": "Send",
+      "popupAction": "Close",
+      "popupTitle": "Thank you!",
+      "popupMessage": "Your request has been sent successfully. Our Bitvera team will review it and contact you asap."
+    },
     "projectTypeWebsiteLabel": "Website",
     "projectTypeWebApplicationLabel": "Web Application",
     "projectTypeEcommerceLabel": "Ecommerce",
@@ -179,14 +385,39 @@
     "phone": "Phone:",
     "website": "Your Website:",
     "message": "Message:",
-    "messagePlaceholder": "Enter your message"
+    "messagePlaceholder": "Enter your message",
+    "supportForm": {
+      "errors": {
+        "required": "This field is required.",
+        "emailInvalid": "Please provide a valid email address."
+      },
+      "fields": {
+        "name": {
+          "label": "Name:",
+          "placeholder": "Enter your full name"
+        },
+        "email": {
+          "label": "Email:",
+          "placeholder": "Enter your email"
+        },
+        "message": {
+          "label": "Message:",
+          "placeholder": "Enter your message"
+        }
+      },
+      "sending": "Sending...",
+      "submit": "Send",
+      "popupAction": "Close",
+      "popupTitle": "Thank you!",
+      "popupMessage": "Your request has been sent successfully! Our Bitvera team will review it and contact you asap!"
+    }
   },
   "notFoundPage": {
     "title": "This Destination Doesn’t Exist",
     "messagePrimary": "The page you’re looking for seems to have taken a different route.",
+    "cta": "Head Back Home",
     "messageSecondary": "It may have moved — or perhaps it never existed at all. Either way, your journey continues.",
-    "prompt": "Return to the previous page or:",
-    "cta": "Head Back Home"
+    "prompt": "Return to the previous page or:"
   },
   "notFound": {
     "title": "404 — Page Not Found",

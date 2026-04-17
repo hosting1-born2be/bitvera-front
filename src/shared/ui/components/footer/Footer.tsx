@@ -37,32 +37,32 @@ const menuColumns: readonly FooterLinkItem[][] = [
     { key: "home", href: "/" },
     { key: "about", href: "/about" },
     { key: "howToExchange", href: "/how-to-exchange" },
-    { key: "affiliateProgram", href: "/#affiliate" },
+    { key: "affiliateProgram", href: "/affiliate-program" },
   ],
   [
-    { key: "faq", href: "/#faq" },
+    { key: "faq", href: "/qa" },
     { key: "blog", href: "/#blog" },
-    { key: "contactUs", href: "/#contact" },
+    { key: "contactUs", href: "/contact-us" },
   ],
 ] as const;
 
 const productLinks: readonly FooterLinkItem[] = [
-  { key: "termsOfService", href: "/#terms-of-service" },
-  { key: "privacyPolicy", href: "/#privacy-policy" },
-  { key: "riskDisclosure", href: "/#risk-disclosure" },
-  { key: "refundPolicy", href: "/#refund-policy" },
-  { key: "amlPolicy", href: "/#aml-kyc-policy" },
+  { key: "termsOfService", href: "/terms-of-service" },
+  { key: "privacyPolicy", href: "/privacy-policy" },
+  { key: "riskDisclosure", href: "/risk-disclosure" },
+  { key: "refundPolicy", href: "/refund-policy" },
+  { key: "amlPolicy", href: "/aml-kyc-policy" },
 ] as const;
 
 const productColumns: readonly FooterLinkItem[][] = [
   [
-    { key: "termsOfService", href: "/#terms-of-service" },
-    { key: "privacyPolicy", href: "/#privacy-policy" },
-    { key: "riskDisclosure", href: "/#risk-disclosure" },
+    { key: "termsOfService", href: "/terms-of-service" },
+    { key: "privacyPolicy", href: "/privacy-policy" },
+    { key: "riskDisclosure", href: "/risk-disclosure" },
   ],
   [
-    { key: "refundPolicy", href: "/#refund-policy" },
-    { key: "amlPolicy", href: "/#aml-kyc-policy" },
+    { key: "refundPolicy", href: "/refund-policy" },
+    { key: "amlPolicy", href: "/aml-kyc-policy" },
   ],
 ] as const;
 

@@ -1,32 +1,61 @@
-import { Roboto_Mono, Space_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import type { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 
-import { cn } from '@/shared/lib/helpers/styles';
-
 import 'react-toastify/dist/ReactToastify.css';
 import '@/shared/lib/styles/null.scss';
 import '@/shared/lib/styles/base.scss';
 
-const spaceMono = Space_Mono({
-  subsets: ['latin'],
-  variable: '--font-space-mono',
-  display: 'swap',
-  weight: ['400', '700'],
-});
-
-const robotoMono = Roboto_Mono({
-  subsets: ['latin'],
-  variable: '--font-roboto-mono',
-  display: 'swap',
-  weight: ['400'],
-});
-
-const clashGrotesk = localFont({
-  src: './fonts/ClashGrotesk-Variable.ttf',
-  variable: '--font-clash-grotesk',
+const satoshi = localFont({
+  src: [
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Light.woff',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Regular.woff',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Italic.woff',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Medium.woff',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-MediumItalic.woff',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Bold.woff',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-BoldItalic.woff',
+      weight: '700',
+      style: 'italic',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-Black.woff',
+      weight: '900',
+      style: 'normal',
+    },
+    {
+      path: './fonts/satoshi-webfont/Satoshi-BlackItalic.woff',
+      weight: '900',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-satoshi',
   display: 'swap',
 });
 
@@ -48,7 +77,7 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
     <html lang={locale}>
-      <body className={cn(spaceMono.variable, robotoMono.variable, clashGrotesk.variable)}>
+      <body className={`${satoshi.variable} ${satoshi.className}`}>
         {children}
       </body>
     </html>

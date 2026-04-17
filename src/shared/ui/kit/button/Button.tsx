@@ -24,6 +24,7 @@ export const Button = ({
     | "borderedCompact"
     | "bitveraDark"
     | "bitveraLight"
+    | "bitveraForm"
     | "headerLight"
     | "headerDark"
     | "headerMenu"

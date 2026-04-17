@@ -27,10 +27,10 @@ const navigationItems: readonly HeaderNavItem[] = [
   { key: "home", href: "/" },
   { key: "about", href: "/about" },
   { key: "howToExchange", href: "/how-to-exchange" },
-  { key: "affiliateProgram", href: "/#affiliate" },
-  { key: "faq", href: "/#faq" },
+  { key: "affiliateProgram", href: "/affiliate-program" },
+  { key: "faq", href: "/qa" },
   { key: "blog", href: "/#blog" },
-  { key: "contactUs", href: "/#contact" },
+  { key: "contactUs", href: "/contact-us" },
 ] as const;
 
 export const Header = () => {
@@ -38,7 +38,11 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const t = useTranslations("header");
-  const isDarkRoute = pathname === "/about" || pathname === "/how-to-exchange";
+  const isDarkRoute =
+    pathname === "/about" ||
+    pathname === "/how-to-exchange" ||
+    pathname === "/affiliate-program" ||
+    pathname === "/qa";
 
   useEffect(() => {
     setTimeout(() => {

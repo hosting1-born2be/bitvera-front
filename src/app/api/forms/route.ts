@@ -33,6 +33,27 @@ type CustomSolutionPayload = {
   attachmentNames: string[];
 };
 
+type AffiliatePayload = {
+  name: string;
+  username: string;
+  email: string;
+  website: string;
+  password: string;
+  companyName: string;
+  companyCountry: string;
+  geoOfCustomers: string;
+  positionInCompany: string;
+  businessActivity: string;
+  yearsOnMarket: string;
+  plannedVolume: string;
+};
+
+type SupportPayload = {
+  name: string;
+  email: string;
+  message?: string;
+};
+
 type Attachment = {
   content: string;
   filename: string;
@@ -196,15 +217,99 @@ const buildCustomSolutionUserEmailHtml = (payload: CustomSolutionPayload) => {
   `;
 };
 
+const buildAffiliateUserEmailHtml = (payload: AffiliatePayload) => {
+  const safeFirstName = getSafeFirstName(payload.name);
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiliate Request Received - Bitvera</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #fff; color: #333;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fff;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" style="max-width: 640px; width: 100%; border-collapse: collapse; background-color: #fff; overflow: hidden;">
+          <tr>
+            <td style="padding: 32px; background: #fff;">
+              <p style="margin: 0 0 32px; color: #333;font-size: 24px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Dear ${safeFirstName},
+              </p>
+              <p style="margin: 0 0 24px; color: #333;font-size: 16px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Your request has been sent successfully. Our Bitvera team will review it and contact you asap.
+              </p>
+              <p style="margin: 0 0 24px; color: #333;font-size: 16px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Best regards,<br>
+                <strong style="color: #333;">The Bitvera Team</strong>
+              </p>
+              <p style="margin: 0; color: #333;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
+                <a href="https://bitvera.com" target="_blank" style="color: #333;font-weight: 400;text-decoration: underline;">bitvera.com</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
+};
+
+const buildSupportUserEmailHtml = (payload: SupportPayload) => {
+  const safeFirstName = getSafeFirstName(payload.name);
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Request Received - Bitvera</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #fff; color: #333;">
+  <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fff;">
+    <tr>
+      <td align="center" style="padding: 40px 20px;">
+        <table role="presentation" style="max-width: 640px; width: 100%; border-collapse: collapse; background-color: #fff; overflow: hidden;">
+          <tr>
+            <td style="padding: 32px; background: #fff;">
+              <p style="margin: 0 0 32px; color: #333;font-size: 24px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Dear ${safeFirstName},
+              </p>
+              <p style="margin: 0 0 24px; color: #333;font-size: 16px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Your request has been sent successfully! Our Bitvera team will review it and contact you asap!
+              </p>
+              <p style="margin: 0 0 24px; color: #333;font-size: 16px;font-style: normal;font-weight: 400;line-height: 140%;">
+                Best regards,<br>
+                <strong style="color: #333;">The Bitvera Team</strong>
+              </p>
+              <p style="margin: 0; color: #333;font-size: 18px;font-style: normal;font-weight: 400;line-height: 140%;">
+                <a href="https://bitvera.com" target="_blank" style="color: #333;font-weight: 400;text-decoration: underline;">bitvera.com</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
+};
+
 const parseJsonBody = async (request: Request) => {
   const body = (await request.json()) as {
-    formType: 'request';
-    data: RequestPayload & { recaptcha?: string };
+    formType: string;
+    data?: Record<string, unknown>;
   };
 
   return {
-    formType: body.formType,
-    payload: body.data,
+    formType: String(body.formType ?? ''),
+    payload: body.data ?? {},
     attachments: [] as Attachment[],
   };
 };
@@ -327,6 +432,79 @@ async function handleCustomSolutionForm(
   }, 'custom solution confirmation');
 }
 
+async function handleAffiliateForm(
+  payload: AffiliatePayload & { recaptcha?: string },
+  attachments: Attachment[]
+) {
+  const { adminEmails, fromEmail } = getEmailConfig();
+  const { recaptcha: _recaptcha, ...requestData } = payload;
+  void _recaptcha;
+  void attachments;
+
+  const html = `
+    <h2>Affiliate Program Request</h2>
+    <p><strong>Name:</strong> ${escapeHtml(requestData.name)}</p>
+    <p><strong>Username:</strong> ${escapeHtml(requestData.username)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(requestData.email)}</p>
+    <p><strong>Website:</strong> ${escapeHtml(requestData.website)}</p>
+    <p><strong>Password:</strong> ${escapeHtml(requestData.password)}</p>
+    <p><strong>Company name:</strong> ${escapeHtml(requestData.companyName)}</p>
+    <p><strong>Company country:</strong> ${escapeHtml(requestData.companyCountry)}</p>
+    <p><strong>GEO of customers:</strong> ${escapeHtml(requestData.geoOfCustomers)}</p>
+    <p><strong>Your position in the company:</strong> ${escapeHtml(requestData.positionInCompany)}</p>
+    <p><strong>Your business activity:</strong> ${escapeHtml(requestData.businessActivity)}</p>
+    <p><strong>Years on the market:</strong> ${escapeHtml(requestData.yearsOnMarket) || 'Not specified'}</p>
+    <p><strong>The planned amount of customers or volume:</strong> ${escapeHtml(requestData.plannedVolume) || 'Not specified'}</p>
+  `;
+
+  await sendEmail({
+    to: adminEmails,
+    from: fromEmail,
+    replyTo: requestData.email,
+    subject: 'Affiliate Program Request',
+    html,
+  }, 'admin affiliate notification');
+
+  await sendEmail({
+    to: requestData.email,
+    from: fromEmail,
+    subject: "We've Received Your Affiliate Program Request",
+    html: buildAffiliateUserEmailHtml(requestData),
+  }, 'affiliate confirmation');
+}
+
+async function handleSupportForm(
+  payload: SupportPayload & { recaptcha?: string },
+  attachments: Attachment[]
+) {
+  const { adminEmails, fromEmail } = getEmailConfig();
+  const { recaptcha: _recaptcha, ...requestData } = payload;
+  void _recaptcha;
+  void attachments;
+
+  const html = `
+    <h2>Support Service Request</h2>
+    <p><strong>Name:</strong> ${escapeHtml(requestData.name)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(requestData.email)}</p>
+    <p><strong>Message:</strong> ${escapeHtml(requestData.message) || 'Not provided'}</p>
+  `;
+
+  await sendEmail({
+    to: adminEmails,
+    from: fromEmail,
+    replyTo: requestData.email,
+    subject: 'Support Service Request',
+    html,
+  }, 'admin support notification');
+
+  await sendEmail({
+    to: requestData.email,
+    from: fromEmail,
+    subject: "We've Received Your Support Request",
+    html: buildSupportUserEmailHtml(requestData),
+  }, 'support confirmation');
+}
+
 export async function POST(request: Request): Promise<NextResponse> {
   try {
     const contentType = request.headers.get('content-type') ?? '';
@@ -359,6 +537,16 @@ export async function POST(request: Request): Promise<NextResponse> {
       await handleRequestForm(parsed.payload as RequestPayload & { recaptcha?: string }, parsed.attachments);
     } else if (parsed.formType === 'custom-solution') {
       await handleCustomSolutionForm(parsed.payload, parsed.attachments);
+    } else if (parsed.formType === 'affiliate') {
+      await handleAffiliateForm(
+        parsed.payload as AffiliatePayload & { recaptcha?: string },
+        parsed.attachments
+      );
+    } else if (parsed.formType === 'support') {
+      await handleSupportForm(
+        parsed.payload as SupportPayload & { recaptcha?: string },
+        parsed.attachments
+      );
     } else {
       return NextResponse.json({ message: 'Unsupported form type.' }, { status: 400 });
     }

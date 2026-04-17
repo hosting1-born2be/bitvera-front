@@ -5,10 +5,10 @@ import { useTranslations } from 'next-intl';
 
 import { fadeInLeft } from '@/shared/lib/helpers/animations';
 
-import styles from './HowToExchangeHeroSection.module.scss';
+import styles from './ContactUsHeroSection.module.scss';
 
-export const HowToExchangeHeroSection = () => {
-  const t = useTranslations('howToExchangePage');
+export const ContactUsHeroSection = () => {
+  const t = useTranslations('contactUsPage');
   const viewport = { once: true, amount: 0.2 };
 
   return (
@@ -24,13 +24,14 @@ export const HowToExchangeHeroSection = () => {
           <div className={styles.copy}>
             <h1 className={styles.title}>
               {t('heroTitle', {
-                fallback: 'How to Start Exchanging Cryptocurrency',
+                fallback: 'Support service',
               })}
             </h1>
 
             <p className={styles.subtitle}>
               {t('heroSubtitle', {
-                fallback: 'Bitvera currently offers BTC and ETH for exchange.',
+                fallback:
+                  'Contact us if you have any technical questions! We are always here for you.',
               })}
             </p>
           </div>

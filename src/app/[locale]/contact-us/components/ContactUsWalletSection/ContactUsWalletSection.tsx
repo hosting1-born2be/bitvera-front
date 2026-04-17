@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { fadeInLeft, fadeInUp } from '@/shared/lib/helpers/animations';
 
-import styles from './HowToExchangeWalletSection.module.scss';
+import styles from './ContactUsWalletSection.module.scss';
 
 const walletCards = [
   {
@@ -22,8 +22,8 @@ const walletCards = [
   },
 ] as const;
 
-export const HowToExchangeWalletSection = () => {
-  const t = useTranslations('howToExchangePage');
+export const ContactUsWalletSection = () => {
+  const t = useTranslations('contactUsPage');
   const viewport = { once: true, amount: 0.2 };
 
   return (

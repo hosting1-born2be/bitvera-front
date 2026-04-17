@@ -1,6 +1,8 @@
 import type {
+  AffiliateFormSchema,
   CustomSolutionRequestFormSchema,
   RequestFormSchema,
+  SupportFormSchema,
 } from '../model/schemas';
 
 const buildFullName = (firstName: string, lastName: string) => `${firstName} ${lastName}`.trim();
@@ -68,6 +70,38 @@ export async function submitCustomSolutionRequestForm(
   const res = await fetch('/api/forms', {
     method: 'POST',
     body: formData,
+  });
+
+  if (!res.ok) {
+    const json = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(json?.message ?? 'Submission failed');
+  }
+}
+
+export async function submitAffiliateForm(data: AffiliateFormSchema): Promise<void> {
+  const res = await fetch('/api/forms', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formType: 'affiliate',
+      data,
+    }),
+  });
+
+  if (!res.ok) {
+    const json = (await res.json().catch(() => ({}))) as { message?: string };
+    throw new Error(json?.message ?? 'Submission failed');
+  }
+}
+
+export async function submitSupportForm(data: SupportFormSchema): Promise<void> {
+  const res = await fetch('/api/forms', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      formType: 'support',
+      data,
+    }),
   });
 
   if (!res.ok) {

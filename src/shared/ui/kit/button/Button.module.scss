@@ -150,6 +150,29 @@
     }
   }
 
+  &.bitveraForm {
+    min-width: 200px;
+    min-height: 72px;
+    border: 2px solid #f5f5f5;
+    border-radius: 70px;
+    background: #f5f5f5;
+    box-shadow: none;
+    padding: 20px 32px;
+    color: #0d0d0d;
+    font-family: var(--font-clash-grotesk), sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    text-transform: none;
+
+    &:hover {
+      border-color: #f5f5f5;
+      background: #f5f5f5;
+      color: #0d0d0d;
+    }
+  }
+
   &.headerLight,
   &.headerDark,
   &.headerMenu,

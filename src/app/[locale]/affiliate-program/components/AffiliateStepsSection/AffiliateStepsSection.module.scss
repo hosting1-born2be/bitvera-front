@@ -1,0 +1,166 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  background: #ffffff;
+  padding: 80px 0;
+
+  @include mobile {
+    padding: 60px 0;
+  }
+}
+
+.title,
+.cardTitle,
+.cardBody,
+.badge {
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-style: normal;
+}
+
+.title {
+  color: #0000ee;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 40px;
+}
+
+.card {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow:
+    0 9px 19px rgba(0, 0, 0, 0.1),
+    0 34px 34px rgba(0, 0, 0, 0.09),
+    0 77px 46px rgba(0, 0, 0, 0.05);
+  isolation: isolate;
+
+  @include mobile {
+    padding: 40px 20px;
+  }
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: '';
+    z-index: -1;
+  }
+}
+
+.registration::before {
+  background-image: url('/images/affiliate-program/bitvera/step-registration-desktop.png');
+
+  @include mobile {
+    background-image: url('/images/affiliate-program/bitvera/step-registration-mobile.png');
+  }
+}
+
+.verification::before {
+  background-image: url('/images/affiliate-program/bitvera/step-verification-desktop.png');
+
+  @include mobile {
+    background-image: url('/images/affiliate-program/bitvera/step-verification-mobile.png');
+  }
+}
+
+.promotion::before {
+  background-image: url('/images/affiliate-program/bitvera/step-promotion-desktop.png');
+
+  @include mobile {
+    background-image: url('/images/affiliate-program/bitvera/step-promotion-mobile.png');
+  }
+}
+
+.rewarded::before {
+  background-image: url('/images/affiliate-program/bitvera/step-rewarded-desktop.png');
+
+  @include mobile {
+    background-image: url('/images/affiliate-program/bitvera/step-rewarded-mobile.png');
+  }
+}
+
+.badge {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  display: inline-flex;
+  width: 98px;
+  height: 98px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #164ffc;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    top: 20px;
+    left: 20px;
+    right: auto;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    letter-spacing: -0.04em;
+  }
+}
+
+.cardContent {
+  display: flex;
+  max-width: 600px;
+  flex-direction: column;
+  gap: 10px;
+
+  @include mobile {
+    padding-top: 72px;
+  }
+}
+
+.cardTitle {
+  color: #121730;
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 68px;
+  }
+
+  @include mobile {
+    font-size: 60px;
+  }
+}
+
+.cardBody {
+  color: #111111;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+}

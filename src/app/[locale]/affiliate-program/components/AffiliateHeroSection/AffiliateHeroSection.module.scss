@@ -1,0 +1,187 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.section {
+  position: relative;
+  padding: 188px 0 60px;
+  background-color: #121730;
+  background-image: url("/images/affiliate-program/bitvera/hero-bg-desktop.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  @include mobile {
+    padding: 132px 0 60px;
+  }
+
+  .coin1 {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 0;
+    pointer-events: none;
+    @include tablet {
+      display: none;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  max-width: 1000px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title,
+.subtitle,
+.cardTitle,
+.cardDescription {
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-style: normal;
+}
+
+.title {
+  max-width: 980px;
+  color: #f5f5f5;
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include desktop {
+    font-size: 72px;
+  }
+
+  @include tablet {
+    font-size: 64px;
+  }
+
+  @include mobile {
+    max-width: 580px;
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+}
+
+.subtitle {
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    max-width: 100%;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 500px minmax(0, 1fr);
+  gap: 16px;
+  padding-top: 60px;
+  position: relative;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+  .coin2 {
+    position: absolute;
+    right: 100px;
+    bottom: calc(100% - 60px);
+    z-index: 0;
+    pointer-events: none;
+    @include tablet {
+      display: none;
+    }
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  min-height: 220px;
+  align-items: flex-end;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 40px;
+  isolation: isolate;
+
+  @include mobile {
+    min-height: 190px;
+    padding: 40px 32px;
+  }
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    content: "";
+    z-index: -1;
+  }
+}
+
+.cardDark::before {
+  background-image: url("/images/affiliate-program/bitvera/hero-card-dark-desktop.png");
+}
+
+.cardDarkMirrored::before {
+  background-image: url("/images/affiliate-program/bitvera/hero-card-dark-desktop-mirrored.png");
+}
+
+.cardLight::before {
+  background-image: url("/images/affiliate-program/bitvera/hero-card-light-desktop.png");
+
+  @include mobile {
+    background-image: url("/images/affiliate-program/bitvera/hero-card-light-mobile.png");
+  }
+}
+
+.cardContent {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardLight {
+  align-items: flex-start;
+
+  .cardContent {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.cardTitle {
+  color: #121730;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 28px;
+  }
+}
+
+.cardDescription {
+  color: #f5f5f5;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+
+  @include mobile {
+    font-size: 18px;
+    letter-spacing: -0.03em;
+  }
+}
+
+.cardLight .cardDescription {
+  color: #111111;
+}
