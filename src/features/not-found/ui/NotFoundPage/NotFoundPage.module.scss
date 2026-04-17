@@ -1,0 +1,85 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.page {
+  background: #efeef3;
+}
+
+.section {
+  background: #efeef3 url('/images/home/bitvera/hero-bg-desktop.png') center top / cover
+    no-repeat;
+  padding: 180px 0 120px;
+  min-height: 100vh;
+
+  @include mobile {
+    background-image: url('/images/home/bitvera/hero-bg-mobile.png');
+    background-position: center top;
+    padding: 156px 0 80px;
+  }
+}
+
+.content {
+  display: flex;
+  max-width: 720px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.eyebrow,
+.title,
+.subtitle {
+  margin: 0;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-style: normal;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border-radius: 40px;
+  background: rgba(0, 0, 238, 0.12);
+  padding: 8px 16px;
+  color: #0000ee;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.title {
+  max-width: 680px;
+  color: #151515;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 64px;
+  }
+
+  @include mobile {
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+}
+
+.subtitle {
+  max-width: 580px;
+  color: #0000ee;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.buttonWrap {
+  display: inline-flex;
+}
