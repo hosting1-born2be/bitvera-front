@@ -1,113 +1,170 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import { cache } from "react";
-import matter from "gray-matter";
-import { marked } from "marked";
 
-import { articleRegistry, type ArticleSlug } from "@/features/articles/lib/articleRegistry";
-import type { ArticleDetail, ArticleListItem, ArticleLocale, ArticleSection } from "@/features/articles/model/types";
+import {
+  articleRegistry,
+  articleRegistryMap,
+} from "@/features/articles/lib/articleRegistry";
+import type {
+  ArticleDetail,
+  ArticleImage,
+  ArticleListItem,
+  ArticleLocale,
+  ArticleRichText,
+} from "@/features/articles/model/types";
 
-const CONTENT_ROOT = path.join(process.cwd(), "src", "features", "articles", "lib");
 const DEFAULT_LOCALE: ArticleLocale = "en";
 const SUPPORTED_LOCALES = new Set<ArticleLocale>(["en", "de", "it"]);
 
-type ArticleFrontmatter = {
-  title: string;
-  excerpt: string;
-  seoTitle: string;
-  seoDescription: string;
-  ctaTitle: string;
+type PayloadMedia = {
+  alt?: string | null;
+  url?: string | null;
 };
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/(^-|-$)/g, "");
+type PayloadPost = {
+  id: number | string;
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
+  info?: ArticleRichText;
+  content?: ArticleRichText;
+  seo_title?: string | null;
+  seo_description?: string | null;
+  image?: number | PayloadMedia | null;
+  createdAt?: string;
+};
+
+type PayloadCollectionResponse = {
+  docs?: PayloadPost[];
+};
 
 const resolveLocale = (locale?: string): ArticleLocale =>
-  SUPPORTED_LOCALES.has(locale as ArticleLocale) ? (locale as ArticleLocale) : DEFAULT_LOCALE;
+  SUPPORTED_LOCALES.has(locale as ArticleLocale)
+    ? (locale as ArticleLocale)
+    : DEFAULT_LOCALE;
 
-const getArticlePath = (locale: ArticleLocale, slug: ArticleSlug) =>
-  path.join(CONTENT_ROOT, locale, `${slug}.md`);
+const resolveCMSBaseUrl = () =>
+  (
+    process.env.SERVER_URL ??
+    process.env.NEXT_PUBLIC_SERVER_URL ??
+    ""
+  ).replace(/\/$/, "");
 
-const parseSections = (markdown: string): ArticleSection[] => {
-  const tokens = marked.lexer(markdown);
-  const sections: Array<{ title: string; body: string[] }> = [];
-  let currentSection: { title: string; body: string[] } | null = null;
+const buildCollectionUrl = (params: Record<string, string>) => {
+  const cmsBaseUrl = resolveCMSBaseUrl();
 
-  for (const token of tokens) {
-    if (token.type === "heading" && token.depth === 2) {
-      if (currentSection) {
-        sections.push(currentSection);
-      }
-
-      currentSection = {
-        title: token.text,
-        body: [],
-      };
-      continue;
-    }
-
-    if (!currentSection) {
-      currentSection = {
-        title: "Introduction",
-        body: [],
-      };
-    }
-
-    currentSection.body.push(token.raw ?? "");
+  if (!cmsBaseUrl) {
+    return null;
   }
 
-  if (currentSection) {
-    sections.push(currentSection);
+  const url = new URL("/api/posts", cmsBaseUrl);
+
+  for (const [key, value] of Object.entries(params)) {
+    url.searchParams.set(key, value);
   }
 
-  return sections
-    .map((section) => ({
-      id: slugify(section.title),
-      title: section.title,
-      html: (marked.parse(section.body.join("").trim()) as string).trim(),
-    }))
-    .filter((section) => section.title && section.html);
+  return url.toString();
 };
 
-const readArticleFile = cache(async (slug: ArticleSlug, locale: ArticleLocale) => {
-  const requestedPath = getArticlePath(locale, slug);
-
-  try {
-    return await fs.readFile(requestedPath, "utf8");
-  } catch {
-    if (locale === DEFAULT_LOCALE) {
-      throw new Error(`Missing article markdown for slug "${slug}" in locale "${locale}".`);
-    }
-
-    return fs.readFile(getArticlePath(DEFAULT_LOCALE, slug), "utf8");
+const resolveMediaUrl = (url?: string | null) => {
+  if (!url) {
+    return null;
   }
-});
 
-const parseArticle = async (
-  slug: ArticleSlug,
-  locale: ArticleLocale,
-  order: number,
-): Promise<ArticleDetail> => {
-  const rawFile = await readArticleFile(slug, locale);
-  const { data, content } = matter(rawFile);
-  const frontmatter = data as ArticleFrontmatter;
+  if (/^https?:\/\//i.test(url)) {
+    return url;
+  }
+
+  const cmsBaseUrl = resolveCMSBaseUrl();
+  return cmsBaseUrl ? `${cmsBaseUrl}${url}` : null;
+};
+
+const normalizeImage = (image?: number | PayloadMedia | null): ArticleImage => {
+  if (!image || typeof image === "number") {
+    return null;
+  }
+
+  const normalizedUrl = resolveMediaUrl(image.url);
+
+  if (!normalizedUrl) {
+    return null;
+  }
 
   return {
-    slug,
-    order,
-    locale,
-    title: frontmatter.title,
-    excerpt: frontmatter.excerpt,
-    seoTitle: frontmatter.seoTitle,
-    seoDescription: frontmatter.seoDescription,
-    ctaTitle: frontmatter.ctaTitle,
-    sections: parseSections(content),
+    url: normalizedUrl,
+    alt: image.alt?.trim() || "Bitvera article image",
   };
 };
+
+const mapPostToListItem = (
+  post: PayloadPost,
+  locale: ArticleLocale,
+): ArticleListItem | null => {
+  const slug = post.slug?.trim();
+
+  if (!slug || !post.title?.trim()) {
+    return null;
+  }
+
+  const registryEntry = articleRegistryMap.get(slug);
+
+  return {
+    id: String(post.id),
+    slug,
+    order: registryEntry?.order ?? Number.MAX_SAFE_INTEGER,
+    locale,
+    title: post.title.trim(),
+    excerpt: post.excerpt?.trim() || "",
+    seoTitle: post.seo_title?.trim() || post.title.trim(),
+    seoDescription: post.seo_description?.trim() || post.excerpt?.trim() || "",
+    image: normalizeImage(post.image),
+  };
+};
+
+const mapPostToDetail = (
+  post: PayloadPost,
+  locale: ArticleLocale,
+): ArticleDetail | null => {
+  const listItem = mapPostToListItem(post, locale);
+
+  if (!listItem) {
+    return null;
+  }
+
+  return {
+    ...listItem,
+    info: post.info ?? null,
+    content: post.content ?? null,
+  };
+};
+
+const fetchCollection = cache(
+  async (params: Record<string, string>): Promise<PayloadCollectionResponse | null> => {
+    const url = buildCollectionUrl(params);
+
+    if (!url) {
+      return null;
+    }
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Accept: "application/json",
+        },
+        next: {
+          revalidate: 300,
+        },
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      return (await response.json()) as PayloadCollectionResponse;
+    } catch {
+      return null;
+    }
+  },
+);
 
 export const getArticles = async ({
   locale = DEFAULT_LOCALE,
@@ -115,22 +172,17 @@ export const getArticles = async ({
   locale?: string;
 } = {}): Promise<ArticleListItem[]> => {
   const resolvedLocale = resolveLocale(locale);
+  const payload = await fetchCollection({
+    locale: resolvedLocale,
+    "fallback-locale": DEFAULT_LOCALE,
+    depth: "1",
+    limit: "24",
+  });
 
-  const articles = await Promise.all(
-    articleRegistry.map(async (article) => {
-      const parsed = await parseArticle(article.slug, resolvedLocale, article.order);
-      return {
-        slug: parsed.slug,
-        order: parsed.order,
-        locale: parsed.locale,
-        title: parsed.title,
-        excerpt: parsed.excerpt,
-        seoTitle: parsed.seoTitle,
-        seoDescription: parsed.seoDescription,
-        ctaTitle: parsed.ctaTitle,
-      } satisfies ArticleListItem;
-    }),
-  );
+  const articles =
+    payload?.docs
+      ?.map((post) => mapPostToListItem(post, resolvedLocale))
+      .filter((post): post is ArticleListItem => Boolean(post)) ?? [];
 
   return articles.sort((left, right) => left.order - right.order);
 };
@@ -142,13 +194,21 @@ export const getArticle = async ({
   slug: string;
   locale?: string;
 }): Promise<ArticleDetail | null> => {
-  const article = articleRegistry.find((item) => item.slug === slug);
+  const payload = await fetchCollection({
+    locale: resolveLocale(locale),
+    "fallback-locale": DEFAULT_LOCALE,
+    depth: "1",
+    limit: "1",
+    "where[slug][equals]": slug,
+  });
+
+  const article = payload?.docs?.[0];
 
   if (!article) {
     return null;
   }
 
-  return parseArticle(article.slug, resolveLocale(locale), article.order);
+  return mapPostToDetail(article, resolveLocale(locale));
 };
 
 export const getArticleSlugs = () => articleRegistry.map((article) => article.slug);

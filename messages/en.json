@@ -641,6 +641,21 @@
     "blog": "Blog",
     "contactUs": "Contact us"
   },
+  "blogPage": {
+    "title": "Blog",
+    "metaTitle": "Blog | Bitvera",
+    "metaDescription": "Crypto insights, transaction guidance, and practical explainers from Bitvera.",
+    "metaArticleFallbackTitle": "Article | Bitvera",
+    "readMore": "Read more",
+    "emptyTitle": "Articles will appear here soon",
+    "emptyDescription": "Connect the frontend to the CMS and import the Bitvera blog posts to populate this page.",
+    "paginationPrevious": "Previous page",
+    "paginationNext": "Next page",
+    "paginationCurrent": "Current page",
+    "paginationInactive": "Inactive page",
+    "backToBlog": "Back",
+    "legalNotice": "This article and its content have been produced and disseminated for persons outside of the United Kingdom. The information provided is not directed at or intended for distribution to, or use by, any person or entity located within the UK. The financial products and services mentioned in this article are not eligible for the UK. Cryptoassets are classified as Restricted Mass Market Investments in the UK, meaning that they are high-risk investments and are not suitable for most retail investors."
+  },
   "priceList": {
     "title": "Check our full price list",
     "button": "Download"

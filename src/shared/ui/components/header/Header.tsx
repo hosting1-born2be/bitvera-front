@@ -29,7 +29,7 @@ const navigationItems: readonly HeaderNavItem[] = [
   { key: "howToExchange", href: "/how-to-exchange" },
   { key: "affiliateProgram", href: "/affiliate-program" },
   { key: "faq", href: "/qa" },
-  { key: "blog", href: "/#blog" },
+  { key: "blog", href: "/blog" },
   { key: "contactUs", href: "/contact-us" },
 ] as const;
 
@@ -42,7 +42,9 @@ export const Header = () => {
     pathname === "/about" ||
     pathname === "/how-to-exchange" ||
     pathname === "/affiliate-program" ||
-    pathname === "/qa";
+    pathname === "/qa" ||
+    pathname === "/blog" ||
+    pathname.startsWith("/blog/");
 
   useEffect(() => {
     setTimeout(() => {

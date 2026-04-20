@@ -1,12 +1,32 @@
 export type ArticleLocale = "en" | "de" | "it";
 
-export type ArticleSection = {
-  id: string;
-  title: string;
-  html: string;
+export type ArticleRichTextNode = {
+  type: string;
+  tag?: string;
+  text?: string;
+  format?: number;
+  listType?: "bullet" | "number";
+  children?: ArticleRichTextNode[];
+  fields?: {
+    url?: string;
+    newTab?: boolean;
+    linkType?: string;
+  };
 };
 
+export type ArticleRichText = {
+  root?: {
+    children?: ArticleRichTextNode[];
+  };
+} | null;
+
+export type ArticleImage = {
+  url: string;
+  alt: string;
+} | null;
+
 export type ArticleListItem = {
+  id: string;
   slug: string;
   order: number;
   locale: ArticleLocale;
@@ -14,9 +34,10 @@ export type ArticleListItem = {
   excerpt: string;
   seoTitle: string;
   seoDescription: string;
-  ctaTitle: string;
+  image: ArticleImage;
 };
 
 export type ArticleDetail = ArticleListItem & {
-  sections: ArticleSection[];
+  info: ArticleRichText;
+  content: ArticleRichText;
 };

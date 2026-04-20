@@ -41,7 +41,7 @@ const menuColumns: readonly FooterLinkItem[][] = [
   ],
   [
     { key: "faq", href: "/qa" },
-    { key: "blog", href: "/#blog" },
+    { key: "blog", href: "/blog" },
     { key: "contactUs", href: "/contact-us" },
   ],
 ] as const;

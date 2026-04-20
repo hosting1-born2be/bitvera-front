@@ -12,7 +12,7 @@ type InsightCardProps = {
 
 export const InsightCard = ({ article }: InsightCardProps) => {
   return (
-    <Link href={`/insights/${article.slug}`} className={styles.card}>
+    <Link href={`/blog/${article.slug}`} className={styles.card}>
       <div className={styles.content}>
         <h3 className={styles.title}>{article.title}</h3>
         <p className={styles.excerpt}>{article.excerpt}</p>

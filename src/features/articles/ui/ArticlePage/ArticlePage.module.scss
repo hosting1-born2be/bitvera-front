@@ -1,0 +1,182 @@
+@use '@/shared/lib/styles/mixin.scss' as *;
+
+.page {
+  background: #efeef3;
+}
+
+.hero {
+  position: relative;
+  overflow: clip;
+  padding: 156px 0 72px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+    var(--hero-desktop-image) center top / cover no-repeat,
+    #efeef3;
+
+  @include mobile {
+    padding: 136px 0 32px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%),
+      var(--hero-mobile-image) center top / cover no-repeat,
+      #efeef3;
+  }
+}
+
+.heroInner {
+  display: flex;
+  max-width: 1000px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.backIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin: 0;
+  color: #131419;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 52px;
+  }
+
+  @include mobile {
+    max-width: 620px;
+    font-size: 36px;
+  }
+}
+
+.body {
+  padding: 0 0 72px;
+  background: #fff;
+
+  @include mobile {
+    padding: 0 0 48px;
+  }
+}
+
+.bodyInner {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 80px;
+  align-items: start;
+
+  @include tablet {
+    gap: 40px;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.legal {
+  position: sticky;
+  top: 120px;
+  color: #1600d3;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  @include mobile {
+    position: static;
+  }
+}
+
+.contentRail {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section {
+  border-top: 1px solid #7573ff;
+  padding: 21px 32px 20px;
+
+  @include mobile {
+    padding: 18px 0 16px;
+  }
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  color: #111;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.sectionContent {
+  color: #111;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  blockquote {
+    margin: 0;
+  }
+
+  p + p,
+  p + ul,
+  p + ol,
+  ul + p,
+  ol + p,
+  blockquote + p {
+    margin-top: 12px;
+  }
+
+  ul{
+    list-style-type: disc;
+  }
+
+  ul,
+  ol {
+    padding-left: 22px;
+  }
+
+  li + li {
+    margin-top: 4px;
+  }
+
+  a {
+    color: #111;
+    text-decoration: underline;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+}

@@ -641,6 +641,21 @@
     "blog": "Blog",
     "contactUs": "Contact us"
   },
+  "blogPage": {
+    "title": "Blog",
+    "metaTitle": "Blog | Bitvera",
+    "metaDescription": "Approfondimenti crypto, guide operative e spiegazioni pratiche firmate Bitvera.",
+    "metaArticleFallbackTitle": "Articolo | Bitvera",
+    "readMore": "Leggi di più",
+    "emptyTitle": "Gli articoli arriveranno presto qui",
+    "emptyDescription": "Collega il frontend al CMS e importa gli articoli del blog Bitvera per popolare questa pagina.",
+    "paginationPrevious": "Pagina precedente",
+    "paginationNext": "Pagina successiva",
+    "paginationCurrent": "Pagina corrente",
+    "paginationInactive": "Pagina inattiva",
+    "backToBlog": "Indietro",
+    "legalNotice": "Questo articolo e i suoi contenuti sono stati prodotti e diffusi per persone al di fuori del Regno Unito. Le informazioni fornite non sono dirette né destinate alla distribuzione o all'utilizzo da parte di persone o entità situate nel Regno Unito. I prodotti e i servizi finanziari menzionati in questo articolo non sono disponibili nel Regno Unito. I cryptoasset sono classificati nel Regno Unito come Restricted Mass Market Investments, cioè investimenti ad alto rischio non adatti alla maggior parte degli investitori retail."
+  },
   "priceList": {
     "title": "Consulta il nostro listino prezzi completo",
     "button": "Scarica"
