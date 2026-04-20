@@ -36,13 +36,8 @@ export const WelcomeSection = () => {
           <div className={styles.buttonWrap}>
             <Button
               variant="bitveraDark"
-              type="button"
-              onClick={() =>
-                document.getElementById('bitvera-safety')?.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start',
-                })
-              }
+              type="link"
+              url="/about"
             >
               {t('solutionsCta', { fallback: 'More about safety' })}
             </Button>
