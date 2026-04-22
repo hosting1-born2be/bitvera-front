@@ -3,8 +3,8 @@ import type { CSSProperties } from "react";
 import { getArticleRegistryEntry } from "@/features/articles/lib/articleRegistry";
 import type { ArticleDetail } from "@/features/articles/model/types";
 
-import { ArticleRichTextBlocks, groupArticleSections } from "./ArticleRichText";
 import styles from "./ArticlePage.module.scss";
+import { ArticleRichTextBlocks, groupArticleSections } from "./ArticleRichText";
 
 import { Link } from "@/i18n/navigation";
 
@@ -22,7 +22,7 @@ export const ArticlePage = ({ article, labels }: ArticlePageProps) => {
   const registryEntry = getArticleRegistryEntry(article.slug);
   const sections = groupArticleSections(article.content);
   const backgroundImage =
-    article.image?.url || "/images/blog/bitvera/article-hero-1-desktop.png";
+    article.image?.url || `/images/blog/${article.slug}.webp`;
 
   return (
     <article className={styles.page}>

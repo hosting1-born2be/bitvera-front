@@ -1,9 +1,10 @@
+import Image from "next/image";
+
 import type { ArticleListItem } from "@/features/articles/model/types";
 
 import styles from "./BlogPage.module.scss";
 
 import { Link } from "@/i18n/navigation";
-import Image from "next/image";
 
 type BlogPageLabels = {
   title: string;
@@ -55,7 +56,7 @@ export const BlogPage = ({
                     className={styles.card}
                   >
                     <Image
-                      src={article.image?.url || "/images/blog/bitvera/card-image.png"}
+                      src={article.image?.url || `/images/blog/${article.slug}.webp`}
                       alt={article.image?.alt || article.title}
                       width={400}
                       height={232}
