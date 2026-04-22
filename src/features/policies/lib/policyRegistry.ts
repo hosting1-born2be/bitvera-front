@@ -5,15 +5,27 @@ export const policyRegistry = [
   },
   {
     order: 2,
-    slug: "privacy-policy",
+    slug: "terms-of-service",
   },
   {
     order: 3,
-    slug: "cookie-policy",
+    slug: "privacy-policy",
   },
   {
     order: 4,
+    slug: "risk-disclosure",
+  },
+  {
+    order: 5,
+    slug: "cookie-policy",
+  },
+  {
+    order: 6,
     slug: "refund-policy",
+  },
+  {
+    order: 7,
+    slug: "aml-kyc-policy",
   },
 ] as const;
 

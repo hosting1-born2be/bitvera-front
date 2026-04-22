@@ -656,6 +656,13 @@
     "backToBlog": "Indietro",
     "legalNotice": "Questo articolo e i suoi contenuti sono stati prodotti e diffusi per persone al di fuori del Regno Unito. Le informazioni fornite non sono dirette né destinate alla distribuzione o all'utilizzo da parte di persone o entità situate nel Regno Unito. I prodotti e i servizi finanziari menzionati in questo articolo non sono disponibili nel Regno Unito. I cryptoasset sono classificati nel Regno Unito come Restricted Mass Market Investments, cioè investimenti ad alto rischio non adatti alla maggior parte degli investitori retail."
   },
+  "legalPage": {
+    "metaFallbackTitle": "Legale | Bitvera",
+    "metaDescription": "Consulta le informazioni legali, le policy e le comunicazioni di conformità di Bitvera.",
+    "back": "Indietro",
+    "lastUpdated": "Ultimo aggiornamento",
+    "tableOfContents": "Indice"
+  },
   "priceList": {
     "title": "Consulta il nostro listino prezzi completo",
     "button": "Scarica"

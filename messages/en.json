@@ -615,7 +615,7 @@
     "faq": "Q&A",
     "blog": "Blog",
     "contactUs": "Contact us",
-    "termsOfService": "Terms of service",
+    "termsOfService": "Terms and Conditions",
     "privacyPolicy": "Privacy Policy",
     "riskDisclosure": "Risk Disclosure",
     "refundPolicy": "Refund Policy",
@@ -655,6 +655,13 @@
     "paginationInactive": "Inactive page",
     "backToBlog": "Back",
     "legalNotice": "This article and its content have been produced and disseminated for persons outside of the United Kingdom. The information provided is not directed at or intended for distribution to, or use by, any person or entity located within the UK. The financial products and services mentioned in this article are not eligible for the UK. Cryptoassets are classified as Restricted Mass Market Investments in the UK, meaning that they are high-risk investments and are not suitable for most retail investors."
+  },
+  "legalPage": {
+    "metaFallbackTitle": "Legal | Bitvera",
+    "metaDescription": "Read Bitvera's legal information, policies, and compliance disclosures.",
+    "back": "Back",
+    "lastUpdated": "Last updated",
+    "tableOfContents": "Table of contents"
   },
   "priceList": {
     "title": "Check our full price list",

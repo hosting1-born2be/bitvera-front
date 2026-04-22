@@ -62,7 +62,7 @@ export const CookiePopup = () => {
               </Button>
             </div>
 
-            <Link href="/legal/cookie-policy" className={styles.moreLink}>
+            <Link href="/cookie-policy" className={styles.moreLink}>
               {t("link", { fallback: "More About Cookies" })}
             </Link>
           </div>

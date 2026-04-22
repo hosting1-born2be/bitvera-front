@@ -1,9 +1,4 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-
 import { cache } from "react";
-import matter from "gray-matter";
-import { marked } from "marked";
 
 import {
   policyRegistry,
@@ -13,109 +8,152 @@ import type {
   PolicyDetail,
   PolicyListItem,
   PolicyLocale,
-  PolicySection,
+  PolicyRichText,
+  PolicyRichTextNode,
 } from "@/features/policies/model/types";
 
-const CONTENT_ROOT = path.join(process.cwd(), "src", "features", "policies", "lib");
 const DEFAULT_LOCALE: PolicyLocale = "en";
 const SUPPORTED_LOCALES = new Set<PolicyLocale>(["en", "de", "it"]);
+const FALLBACK_ORDER = Number.MAX_SAFE_INTEGER;
+const policyOrderMap = new Map<string, number>(
+  policyRegistry.map((policy) => [policy.slug, policy.order]),
+);
 
-type PolicyFrontmatter = {
-  title: string;
-  excerpt: string;
-  seoTitle: string;
-  seoDescription: string;
-  ctaTitle: string;
+type PayloadPolicy = {
+  id: number | string;
+  slug?: string | null;
+  title?: string | null;
+  content?: PolicyRichText;
+  seo_title?: string | null;
+  seo_description?: string | null;
+  last_updated?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 };
 
-const slugify = (value: string) =>
-  value
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/(^-|-$)/g, "");
+type PayloadCollectionResponse = {
+  docs?: PayloadPolicy[];
+};
 
 const resolveLocale = (locale?: string): PolicyLocale =>
-  SUPPORTED_LOCALES.has(locale as PolicyLocale) ? (locale as PolicyLocale) : DEFAULT_LOCALE;
+  SUPPORTED_LOCALES.has(locale as PolicyLocale)
+    ? (locale as PolicyLocale)
+    : DEFAULT_LOCALE;
 
-const getPolicyPath = (locale: PolicyLocale, slug: PolicySlug) =>
-  path.join(CONTENT_ROOT, locale, `${slug}.md`);
+const resolveCMSBaseUrl = () =>
+  (
+    process.env.SERVER_URL ??
+    process.env.NEXT_PUBLIC_SERVER_URL ??
+    ""
+  ).replace(/\/$/, "");
 
-const parseSections = (markdown: string): PolicySection[] => {
-  const tokens = marked.lexer(markdown);
-  const sections: Array<{ title: string; body: string[] }> = [];
-  let currentSection: { title: string; body: string[] } | null = null;
+const buildCollectionUrl = (params: Record<string, string>) => {
+  const cmsBaseUrl = resolveCMSBaseUrl();
 
-  for (const token of tokens) {
-    if (token.type === "heading" && token.depth === 2) {
-      if (currentSection) {
-        sections.push(currentSection);
+  if (!cmsBaseUrl) {
+    return null;
+  }
+
+  const url = new URL("/api/policies", cmsBaseUrl);
+
+  for (const [key, value] of Object.entries(params)) {
+    url.searchParams.set(key, value);
+  }
+
+  return url.toString();
+};
+
+const extractText = (nodes?: PolicyRichTextNode[]): string =>
+  (nodes ?? [])
+    .map((node) => {
+      if (typeof node.text === "string") {
+        return node.text;
       }
 
-      currentSection = {
-        title: token.text,
-        body: [],
-      };
-      continue;
-    }
+      return extractText(node.children);
+    })
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-    if (!currentSection) {
-      currentSection = {
-        title: "Introduction",
-        body: [],
-      };
-    }
+const buildExcerpt = (content?: PolicyRichText | null) => {
+  const previewText = extractText(content?.root?.children);
 
-    currentSection.body.push(token.raw ?? "");
+  if (!previewText) {
+    return "";
   }
 
-  if (currentSection) {
-    sections.push(currentSection);
+  if (previewText.length <= 180) {
+    return previewText;
   }
 
-  return sections
-    .map((section) => ({
-      id: slugify(section.title),
-      title: section.title,
-      html: (marked.parse(section.body.join("").trim()) as string).trim(),
-    }))
-    .filter((section) => section.title && section.html);
+  return `${previewText.slice(0, 177).trimEnd()}...`;
 };
 
-const readPolicyFile = cache(async (slug: PolicySlug, locale: PolicyLocale) => {
-  const requestedPath = getPolicyPath(locale, slug);
-
-  try {
-    return await fs.readFile(requestedPath, "utf8");
-  } catch {
-    if (locale === DEFAULT_LOCALE) {
-      throw new Error(`Missing policy markdown for slug "${slug}" in locale "${locale}".`);
-    }
-
-    return fs.readFile(getPolicyPath(DEFAULT_LOCALE, slug), "utf8");
-  }
-});
-
-const parsePolicy = async (
-  slug: PolicySlug,
+const mapPolicyToListItem = (
+  policy: PayloadPolicy,
   locale: PolicyLocale,
-  order: number,
-): Promise<PolicyDetail> => {
-  const rawFile = await readPolicyFile(slug, locale);
-  const { data, content } = matter(rawFile);
-  const frontmatter = data as PolicyFrontmatter;
+): PolicyListItem | null => {
+  const slug = policy.slug?.trim();
+  const title = policy.title?.trim();
+
+  if (!slug || !title) {
+    return null;
+  }
+
+  const excerpt = buildExcerpt(policy.content);
 
   return {
+    id: String(policy.id),
     slug,
-    order,
+    order: policyOrderMap.get(slug) ?? FALLBACK_ORDER,
     locale,
-    title: frontmatter.title,
-    excerpt: frontmatter.excerpt,
-    seoTitle: frontmatter.seoTitle,
-    seoDescription: frontmatter.seoDescription,
-    ctaTitle: frontmatter.ctaTitle,
-    sections: parseSections(content),
+    title,
+    excerpt,
+    seoTitle: policy.seo_title?.trim() || title,
+    seoDescription: policy.seo_description?.trim() || excerpt,
+    lastUpdated: policy.last_updated ?? policy.updatedAt ?? policy.createdAt ?? null,
   };
 };
+
+const mapPolicyToDetail = (
+  policy: PayloadPolicy,
+  locale: PolicyLocale,
+): PolicyDetail | null => {
+  const listItem = mapPolicyToListItem(policy, locale);
+
+  if (!listItem) {
+    return null;
+  }
+
+  return {
+    ...listItem,
+    content: policy.content ?? null,
+  };
+};
+
+const fetchCollection = cache(
+  async (url: string): Promise<PayloadCollectionResponse | null> => {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          Accept: "application/json",
+        },
+        next: {
+          revalidate: 300,
+        },
+      });
+
+      if (!response.ok) {
+        return null;
+      }
+
+      return (await response.json()) as PayloadCollectionResponse;
+    } catch {
+      return null;
+    }
+  },
+);
 
 export const getPolicies = async ({
   locale = DEFAULT_LOCALE,
@@ -123,23 +161,24 @@ export const getPolicies = async ({
   locale?: string;
 } = {}): Promise<PolicyListItem[]> => {
   const resolvedLocale = resolveLocale(locale);
+  const url = buildCollectionUrl({
+    locale: resolvedLocale,
+    "fallback-locale": DEFAULT_LOCALE,
+    depth: "2",
+    draft: "false",
+    trash: "false",
+    limit: "100",
+  });
 
-  const policies = await Promise.all(
-    policyRegistry.map(async (policy) => {
-      const parsed = await parsePolicy(policy.slug, resolvedLocale, policy.order);
+  if (!url) {
+    return [];
+  }
 
-      return {
-        slug: parsed.slug,
-        order: parsed.order,
-        locale: parsed.locale,
-        title: parsed.title,
-        excerpt: parsed.excerpt,
-        seoTitle: parsed.seoTitle,
-        seoDescription: parsed.seoDescription,
-        ctaTitle: parsed.ctaTitle,
-      } satisfies PolicyListItem;
-    }),
-  );
+  const payload = await fetchCollection(url);
+  const policies =
+    payload?.docs
+      ?.map((policy) => mapPolicyToListItem(policy, resolvedLocale))
+      .filter((policy): policy is PolicyListItem => Boolean(policy)) ?? [];
 
   return policies.sort((left, right) => left.order - right.order);
 };
@@ -151,13 +190,30 @@ export const getPolicy = async ({
   slug: string;
   locale?: string;
 }): Promise<PolicyDetail | null> => {
-  const policy = policyRegistry.find((item) => item.slug === slug);
+  const resolvedLocale = resolveLocale(locale);
+  const url = buildCollectionUrl({
+    locale: resolvedLocale,
+    "fallback-locale": DEFAULT_LOCALE,
+    depth: "2",
+    draft: "false",
+    trash: "false",
+    limit: "1",
+    "where[slug][equals]": slug,
+  });
+
+  if (!url) {
+    return null;
+  }
+
+  const payload = await fetchCollection(url);
+  const policy = payload?.docs?.[0];
 
   if (!policy) {
     return null;
   }
 
-  return parsePolicy(policy.slug, resolveLocale(locale), policy.order);
+  return mapPolicyToDetail(policy, resolvedLocale);
 };
 
-export const getPolicySlugs = () => policyRegistry.map((policy) => policy.slug);
+export const getPolicySlugs = (): PolicySlug[] =>
+  policyRegistry.map((policy) => policy.slug);

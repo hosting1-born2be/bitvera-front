@@ -1,141 +1,155 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from "react";
 
-import type { Children } from '../../model/types';
-import { PolicyContent } from '../content/PolicyContent';
-import st from './PolicyArticle.module.scss';
+import type { PolicyRichText } from "@/features/policies/model/types";
 
-function extractHeadingText(node: Children): string {
-  return (
-    node.children
-      ?.map((c) => c.text ?? '')
-      .join('')
-      .trim() ?? ''
-  );
-}
+import styles from "./PolicyArticle.module.scss";
+import { groupPolicySections,PolicyRichTextBlocks } from "./PolicyRichText";
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, '-')
-    .replace(/(^-|-$)/g, '');
-}
-
-type Section = {
-  id: string;
-  title: string;
-  nodes: Children[];
+type PolicyArticleLabels = {
+  tableOfContents: string;
 };
-
-function groupIntoSections(content: Children[]): Section[] {
-  const sections: Section[] = [];
-  let current: Section | null = null;
-
-  for (const node of content) {
-    if (node.type === 'heading' && node.tag === 'h2') {
-      const title = extractHeadingText(node);
-      const id = slugify(title);
-      current = { id, title, nodes: [node] };
-      sections.push(current);
-    } else if (current) {
-      current.nodes.push(node);
-    } else {
-      if (sections.length === 0) {
-        current = { id: 'intro', title: '', nodes: [node] };
-        sections.push(current);
-      } else {
-        current!.nodes.push(node);
-      }
-    }
-  }
-
-  return sections;
-}
 
 type PolicyArticleProps = {
-  content: Children[];
+  content: PolicyRichText;
+  labels: PolicyArticleLabels;
 };
 
-export const PolicyArticle = ({ content }: PolicyArticleProps) => {
-  const sections = useMemo(() => groupIntoSections(content), [content]);
-  const headings = useMemo(() => sections.filter((s) => s.title), [sections]);
+export const PolicyArticle = ({ content, labels }: PolicyArticleProps) => {
+  const sections = useMemo(() => groupPolicySections(content), [content]);
+  const tocSections = useMemo(() => {
+    const headingSections = sections.filter((section) => section.title);
 
-  const [activeId, setActiveId] = useState(headings[0]?.id ?? '');
-  const sectionRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+    if (headingSections.length) {
+      return headingSections;
+    }
 
-  const setSectionRef = useCallback(
-    (id: string) => (el: HTMLDivElement | null) => {
-      if (el) sectionRefs.current.set(id, el);
-      else sectionRefs.current.delete(id);
-    },
-    []
-  );
+    return [
+      {
+        id: "policy",
+        title: "Policy",
+        titleTag: "h2" as const,
+        nodes: [],
+      },
+    ];
+  }, [sections]);
+  const [activeId, setActiveId] = useState(tocSections[0]?.id ?? "");
+  const sectionRefs = useRef(new Map<string, HTMLElement>());
 
   useEffect(() => {
+    if (!tocSections.length) {
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top);
 
-        if (visible.length > 0) {
-          const id = visible[0].target.getAttribute('data-section-id');
-          if (id) setActiveId(id);
+        if (visibleEntries[0]) {
+          setActiveId(visibleEntries[0].target.id);
         }
       },
-      { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+      {
+        rootMargin: "-120px 0px -55% 0px",
+        threshold: 0,
+      },
     );
 
-    sectionRefs.current.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [sections]);
+    for (const section of tocSections) {
+      const fallbackElement =
+        section.id === "policy" ? sectionRefs.current.get("policy-root") : null;
+      const element = sectionRefs.current.get(section.id) ?? fallbackElement;
 
-  const scrollTo = (id: string) => {
-    const el = sectionRefs.current.get(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + window.scrollY - 100;
-      window.scrollTo({ top, behavior: 'smooth' });
+      if (element) {
+        observer.observe(element);
+      }
     }
+
+    return () => observer.disconnect();
+  }, [tocSections]);
+
+  const handleScrollTo = (id: string) => {
+    const fallbackElement =
+      id === "policy" ? sectionRefs.current.get("policy-root") : null;
+    const element = sectionRefs.current.get(id) ?? fallbackElement;
+
+    if (!element) {
+      return;
+    }
+
+    const top = element.getBoundingClientRect().top + window.scrollY - 110;
+    window.scrollTo({ top, behavior: "smooth" });
   };
 
   return (
-    <div className={st.article}>
-      <nav className={st.toc}>
-        {headings.map((h) => {
-          const isActive = activeId === h.id;
-          return (
-            <button
-              key={h.id}
-              type="button"
-              className={`${st.toc__item} ${isActive ? st['toc__item--active'] : ''}`}
-              onClick={() => scrollTo(h.id)}
-            >
-              {isActive && (
-                <span className={st.toc__icon} aria-hidden="true">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.75 9H14.25M14.25 9L10.5 5.25M14.25 9L10.5 12.75" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              )}
-              <span className={st.toc__label}>{h.title}</span>
-            </button>
-          );
-        })}
-      </nav>
+    <div className={styles.article}>
+      {tocSections.length ? (
+        <nav className={styles.toc} aria-label={labels.tableOfContents}>
+          {tocSections.map((section) => {
+            const isActive = section.id === activeId;
 
-      <div className={st.content}>
+            return (
+              <button
+                key={section.id}
+                type="button"
+                className={`${styles.tocItem} ${
+                  section.titleTag === "h3" ? styles.tocItemSub : ""
+                } ${isActive ? styles.tocItemActive : ""}`}
+                onClick={() => handleScrollTo(section.id)}
+                aria-current={isActive ? "true" : undefined}
+              >
+                <span className={styles.tocLabel}>{section.title}</span>
+              </button>
+            );
+          })}
+        </nav>
+      ) : null}
+
+      <div
+        className={styles.contentRail}
+        ref={(element) => {
+          if (element) {
+            sectionRefs.current.set("policy-root", element);
+            return;
+          }
+
+          sectionRefs.current.delete("policy-root");
+        }}
+      >
         {sections.map((section) => (
-          <div
+          <section
             key={section.id}
-            ref={setSectionRef(section.id)}
-            data-section-id={section.id}
-            className={st.section}
+            id={section.title ? section.id : undefined}
+            ref={(element) => {
+              if (section.title && element) {
+                sectionRefs.current.set(section.id, element);
+                return;
+              }
+
+              if (section.title) {
+                sectionRefs.current.delete(section.id);
+              }
+            }}
+            className={styles.section}
           >
-            {section.nodes.map((node, i) => (
-              <PolicyContent key={`${section.id}-${i}`} node={node} type={node.type} />
-            ))}
-          </div>
+            {section.title ? (
+              <h2
+                className={
+                  section.titleTag === "h2"
+                    ? `${styles.sectionTitle} ${styles.sectionTitleMain}`
+                    : `${styles.sectionTitle} ${styles.sectionTitleSub}`
+                }
+              >
+                {section.title}
+              </h2>
+            ) : null}
+            <div className={styles.sectionContent}>
+              <PolicyRichTextBlocks content={{ root: { children: section.nodes } }} />
+            </div>
+          </section>
         ))}
       </div>
     </div>

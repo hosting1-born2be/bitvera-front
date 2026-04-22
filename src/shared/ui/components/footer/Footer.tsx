@@ -47,7 +47,7 @@ const menuColumns: readonly FooterLinkItem[][] = [
 ] as const;
 
 const productLinks: readonly FooterLinkItem[] = [
-  { key: "termsOfService", href: "/terms-of-service" },
+  { key: "termsOfService", href: "/terms-and-conditions" },
   { key: "privacyPolicy", href: "/privacy-policy" },
   { key: "riskDisclosure", href: "/risk-disclosure" },
   { key: "refundPolicy", href: "/refund-policy" },
@@ -56,7 +56,7 @@ const productLinks: readonly FooterLinkItem[] = [
 
 const productColumns: readonly FooterLinkItem[][] = [
   [
-    { key: "termsOfService", href: "/terms-of-service" },
+    { key: "termsOfService", href: "/terms-and-conditions" },
     { key: "privacyPolicy", href: "/privacy-policy" },
     { key: "riskDisclosure", href: "/risk-disclosure" },
   ],

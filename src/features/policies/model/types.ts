@@ -1,12 +1,30 @@
 export type PolicyLocale = "en" | "de" | "it";
 
-export type PolicySection = {
-  id: string;
-  title: string;
-  html: string;
+export type PolicyLinkFields = {
+  url?: string;
+  newTab?: boolean;
+  linkType?: string;
 };
 
+export type PolicyRichTextNode = {
+  type: string;
+  tag?: string;
+  text?: string;
+  format?: number;
+  listType?: "bullet" | "number";
+  value?: number;
+  children?: PolicyRichTextNode[];
+  fields?: PolicyLinkFields;
+};
+
+export type PolicyRichText = {
+  root?: {
+    children?: PolicyRichTextNode[];
+  };
+} | null;
+
 export type PolicyListItem = {
+  id: string;
   slug: string;
   order: number;
   locale: PolicyLocale;
@@ -14,95 +32,29 @@ export type PolicyListItem = {
   excerpt: string;
   seoTitle: string;
   seoDescription: string;
-  ctaTitle: string;
+  lastUpdated: string | null;
 };
 
 export type PolicyDetail = PolicyListItem & {
-  sections: PolicySection[];
+  content: PolicyRichText;
 };
 
 export type PolicyDef = {
-  docs: Root2[];
+  docs: PolicyDetail[];
 };
 
-export type Content = {
-  root: Root2;
-};
-
-export type Root2 = {
-  type: string;
-  title: string;
-  format: string;
-  indent: number;
-  version: number;
-  content: { root: { children: Children[] } };
-  direction: string;
-};
-
-export type Children = {
-  type: string;
-  format: string;
-  indent: number;
-  version: number;
-  children: Children2[];
-  direction: string;
-  textStyle?: string;
-  textFormat?: number;
-  tag?: string;
-  start?: number;
-  listType?: string;
-};
-
-export type Children2 = {
-  mode?: string;
-  text?: string;
-  type: string;
-  style?: string;
-  detail?: number;
-  format: number;
-  version: number;
-  id?: string;
-  fields?: Fields;
-  indent?: number;
-  children?: Children3[];
-  direction?: string;
-  value?: number;
-  textFormat?: number;
-};
-
-export type Fields = {
-  url: string;
-  newTab: boolean;
-  linkType: string;
-};
-
-export type Children3 = {
-  mode?: string;
-  text?: string;
-  type: string;
-  style?: string;
-  detail?: number;
-  format: number;
-  version: number;
-  id?: string;
-  fields?: Fields2;
-  indent?: number;
-  children?: Children4[];
-  direction?: string;
-};
-
-export type Fields2 = {
-  url: string;
-  newTab: boolean;
-  linkType: string;
-};
-
-export type Children4 = {
-  mode: string;
-  text: string;
-  type: string;
-  style: string;
-  detail: number;
-  format: number;
-  version: number;
-};
+// Legacy aliases kept so the existing policies slice continues to compile.
+export type Content = PolicyRichText;
+export type Root2 = NonNullable<PolicyRichText>["root"] extends infer Root
+  ? Root extends { children?: infer Children }
+    ? {
+        children?: Children;
+      }
+    : never
+  : never;
+export type Children = PolicyRichTextNode;
+export type Children2 = PolicyRichTextNode;
+export type Children3 = PolicyRichTextNode;
+export type Children4 = PolicyRichTextNode;
+export type Fields = PolicyLinkFields;
+export type Fields2 = PolicyLinkFields;

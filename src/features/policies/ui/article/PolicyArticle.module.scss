@@ -1,120 +1,178 @@
 @use "@/shared/lib/styles/mixin.scss" as *;
 
 .article {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 21px;
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
 
   @include tablet {
     gap: 32px;
   }
 
   @include mobile {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 32px;
   }
 }
 
-/* ── Table of contents ──────────────────────────── */
-
 .toc {
   position: sticky;
-  top: 124px;
-  width: 467px;
-  flex-shrink: 0;
+  top: 120px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 24px 16px;
-  border: 1px solid #eb5e28;
-  border-radius: 16px;
-  background: transparent;
-  max-height: calc(100vh - 124px - 40px);
+  gap: 8px;
+  max-height: calc(100vh - 120px);
   overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: none;
 
-  @include tablet {
-    width: 280px;
-    top: 108px;
-    max-height: calc(100vh - 108px - 40px);
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
   }
 
   @include mobile {
     position: static;
-    width: 100%;
-    border-radius: 12px;
-    max-height: none;
-    overflow-y: visible;
-  }
-
-  &__item {
-    all: unset;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0;
-    border-bottom: 1px solid #ccc6ba;
-    width: 100%;
-    transition: opacity 0.2s ease;
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    &:first-child {
-      padding-top: 0;
-    }
-
-    &:hover {
-      opacity: 0.72;
-    }
-  }
-
-  &__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: #eb5e28;
-  }
-
-  &__label {
-    font-family: var(--font-plus-jakarta-sans, sans-serif);
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1;
-    color: #eb5e28;
-
-    @include tablet {
-      font-size: 16px;
-    }
-  }
-
-  &__item--active &__label {
-    font-weight: 600;
+    max-height: unset;
+    overflow-y: unset;
   }
 }
 
-/* ── Content ──────────────────────────── */
+.tocItem {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 238, 0.2);
+  border-radius: 40px;
+  background: transparent;
+  padding: 8px 20px;
+  color: #00e;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+  justify-content: flex-start;
+}
 
-.content {
-  flex: 1;
+.tocItemSub {
+  margin-left: 20px;
+  width: calc(100% - 20px);
+
+  @include mobile {
+    margin-left: 12px;
+    width: calc(100% - 12px);
+  }
+}
+
+.tocItemActive {
+  background: rgba(0, 0, 238, 0.2);
+}
+
+.tocLabel {
+  display: block;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.tocItemActive .tocLabel {
+  font-weight: 700;
+}
+
+.contentRail {
   display: flex;
-  flex-direction: column;
-  gap: 40px;
   min-width: 0;
-  max-width: 790px;
+  flex-direction: column;
+  //gap: 24px;
 }
 
 .section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  border-top: 1px solid #7573ff;
+  padding: 21px 32px 20px;
+
+  @include mobile {
+    padding: 21px 24px 20px;
+  }
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  color: #111;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.sectionTitleMain {
+  font-size: 32px;
+}
+
+.sectionTitleSub {
+  font-size: 24px;
+}
+
+.sectionContent {
+  color: #111;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  blockquote {
+    margin: 0;
+  }
+
+  h3,
+  h4 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+  }
+
+  h3 + p,
+  h4 + p,
+  p + p,
+  p + ul,
+  p + ol,
+  ul + p,
+  ol + p,
+  blockquote + p {
+    margin-top: 12px;
+  }
+
+  ul,
+  ol {
+    padding-left: 22px;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  li + li {
+    margin-top: 4px;
+  }
+
+  a {
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 0.16em;
+  }
+
+  strong {
+    font-weight: 700;
+  }
 }

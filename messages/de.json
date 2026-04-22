@@ -656,6 +656,13 @@
     "backToBlog": "Zurück",
     "legalNotice": "Dieser Artikel und sein Inhalt wurden für Personen außerhalb des Vereinigten Königreichs erstellt und verbreitet. Die bereitgestellten Informationen richten sich nicht an Personen oder Unternehmen im Vereinigten Königreich und sind nicht für deren Nutzung bestimmt. Die in diesem Artikel genannten Finanzprodukte und Dienstleistungen stehen im Vereinigten Königreich nicht zur Verfügung. Krypto-Assets gelten im Vereinigten Königreich als Restricted Mass Market Investments, also als risikoreiche Anlagen, die für die meisten Privatanleger nicht geeignet sind."
   },
+  "legalPage": {
+    "metaFallbackTitle": "Rechtliches | Bitvera",
+    "metaDescription": "Lesen Sie die rechtlichen Informationen, Richtlinien und Compliance-Hinweise von Bitvera.",
+    "back": "Zurück",
+    "lastUpdated": "Zuletzt aktualisiert",
+    "tableOfContents": "Inhaltsverzeichnis"
+  },
   "priceList": {
     "title": "Sehen Sie sich unsere vollständige Preisliste an",
     "button": "Herunterladen"

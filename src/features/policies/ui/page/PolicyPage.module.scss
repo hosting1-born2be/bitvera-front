@@ -1,0 +1,91 @@
+@use "@/shared/lib/styles/mixin.scss" as *;
+
+.page {
+  background: #efeef3;
+}
+
+.hero {
+  padding: 156px 0 40px;
+  background: #efeef3;
+
+  @include mobile {
+    padding: 136px 0 40px;
+  }
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include mobile {
+    gap: 32px;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: transparent;
+  color: #131419;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.backIcon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroCopy {
+  display: flex;
+  max-width: 1000px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  color: #131419;
+  font-family: var(--font-clash-grotesk), sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+
+  @include tablet {
+    font-size: 52px;
+  }
+
+  @include mobile {
+    font-size: 32px;
+    letter-spacing: -0.03em;
+  }
+}
+
+.updated {
+  margin: 0;
+  color: #131419;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  display: none;
+
+  @include mobile {
+    font-size: 14px;
+    letter-spacing: -0.02em;
+  }
+}
+
+.body {
+  padding: 60px 0;
+  background: #fff;
+}
