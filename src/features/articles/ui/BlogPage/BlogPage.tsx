@@ -61,6 +61,9 @@ export const BlogPage = ({
                       width={400}
                       height={232}
                       className={styles.cardImage}
+                      loading="lazy"
+                      placeholder="blur"
+                      blurDataURL={`/images/blog/${article.slug}.webp`}
                     />
 
                     <div className={styles.cardContent}>
