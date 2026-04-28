@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const policySlugPattern =
-  'terms-and-conditions|terms-of-service|privacy-policy|risk-disclosure|cookie-policy|refund-policy|aml-kyc-policy';
+  'terms-and-conditions|terms-of-service|privacy-policy|risk-disclosure|cookie-policy|refund-policy|aml-and-kyc-policy';
 
 const nextConfig: NextConfig = {
   images: {

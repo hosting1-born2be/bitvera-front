@@ -25,7 +25,7 @@ export const policyRegistry = [
   },
   {
     order: 7,
-    slug: "aml-kyc-policy",
+    slug: "aml-and-kyc-policy",
   },
 ] as const;
 

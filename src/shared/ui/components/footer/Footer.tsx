@@ -51,7 +51,7 @@ const productLinks: readonly FooterLinkItem[] = [
   { key: "privacyPolicy", href: "/privacy-policy" },
   { key: "riskDisclosure", href: "/risk-disclosure" },
   { key: "refundPolicy", href: "/refund-policy" },
-  { key: "amlPolicy", href: "/aml-kyc-policy" },
+  { key: "amlPolicy", href: "/aml-and-kyc-policy" },
 ] as const;
 
 const productColumns: readonly FooterLinkItem[][] = [
@@ -62,7 +62,7 @@ const productColumns: readonly FooterLinkItem[][] = [
   ],
   [
     { key: "refundPolicy", href: "/refund-policy" },
-    { key: "amlPolicy", href: "/aml-kyc-policy" },
+    { key: "amlPolicy", href: "/aml-and-kyc-policy" },
   ],
 ] as const;
 
