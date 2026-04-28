@@ -6,20 +6,20 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import { SIGN_UP_URL } from '@/shared/lib/constants/constants';
+import { fadeInLeft, fadeInRight } from '@/shared/lib/helpers/animations';
 import {
-  CURRENCIES,
-  EXCHANGE_RATES_REFRESH_INTERVAL,
-  INITIAL_RATES,
-  INITIAL_SPEND_AMOUNT,
-  type Currency,
-  type ExchangeRates,
   convertAmount,
+  CURRENCIES,
+  type Currency,
+  EXCHANGE_RATES_REFRESH_INTERVAL,
+  type ExchangeRates,
   formatAmount,
   hasValidExchangeRates,
+  INITIAL_RATES,
+  INITIAL_SPEND_AMOUNT,
   parseAmount,
   sanitizeAmount,
 } from '@/shared/lib/helpers/exchangeConverter';
-import { fadeInLeft, fadeInRight } from '@/shared/lib/helpers/animations';
 import { Button } from '@/shared/ui/kit/button/Button';
 
 import styles from './HeroSection.module.scss';
@@ -209,7 +209,7 @@ export const HeroSection = () => {
             >
               <div className={styles.exchangeCardHeader}>
                 <h2 className={styles.exchangeTitle}>
-                  {t('converterTitle', { fallback: 'Exchange BTC, ETH, AUD, USD & EUR' })}
+                  {t('converterTitle', { fallback: 'Exchange BTC & ETH' })}
                 </h2>
                 <p className={styles.exchangeDescription}>
                   {t('converterDescription', {
