@@ -190,7 +190,7 @@ export const HeroSection = () => {
               </h1>
 
               <p className={styles.heroSubtitle}>
-                {t('heroSubtitle', { fallback: 'Sign up and exchange BTC, ETH, AUD, USD & EUR!' })}
+                {t('heroSubtitle', { fallback: 'Sign up and exchange BTC & ETH!' })}
               </p>
 
               <div className={styles.buttonWrap}>
