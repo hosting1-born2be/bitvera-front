@@ -79,6 +79,7 @@
 }
 
 .card {
+  cursor: pointer;
   display: flex;
   min-height: 200px;
   align-items: center;
@@ -111,4 +112,5 @@
   width: 60px;
   height: 60px;
   flex: 0 0 auto;
+  filter: grayscale(100%);
 }

@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-import { fadeInLeft, fadeInUp } from '@/shared/lib/helpers/animations';
+import { fadeInLeft, fadeInUp } from "@/shared/lib/helpers/animations";
 
-import styles from './HowToExchangeWalletSection.module.scss';
-
-
+import styles from "./HowToExchangeWalletSection.module.scss";
 
 export const HowToExchangeWalletSection = () => {
-  const t = useTranslations('howToExchange');
+  const t = useTranslations("howToExchange");
   const viewport = { once: true, amount: 0.2 };
 
   const walletCards = [
     {
-      key: 'ethereum',
-      image: '/images/how-to-exchange/bitvera/ethereum-coin.svg',
-      alt: t('walletEthereumAlt', { fallback: 'Ethereum wallet icon' }),
+      key: "ethereum",
+      image: "/images/how-to-exchange/bitvera/ethereum-coin.svg",
+      alt: t("walletEthereumAlt", { fallback: "Ethereum wallet icon" }),
+      link: "https://ethereum.org/ ",
     },
     {
-      key: 'bitcoin',
-      image: '/images/how-to-exchange/bitvera/bitcoin-coin.png',
-      alt: t('walletBitcoinAlt', { fallback: 'Bitcoin wallet icon' }),
+      key: "bitcoin",
+      image: "/images/how-to-exchange/bitvera/bitcoin-coin.svg",
+      alt: t("walletBitcoinAlt", { fallback: "Bitcoin wallet icon" }),
+      link: "https://www.blockchain.com/",
     },
   ] as const;
 
@@ -38,11 +38,11 @@ export const HowToExchangeWalletSection = () => {
             viewport={viewport}
           >
             <h2 className={styles.title}>
-              {t('walletTitle', { fallback: 'Wallet' })}
+              {t("walletTitle", { fallback: "Wallet" })}
             </h2>
 
             <p className={styles.description}>
-              {t('walletDescription', {
+              {t("walletDescription", {
                 fallback:
                   "We don't store any cryptocurrencies or fiat currency.\nWe are only a crypto exchange.\nWe recommend (but do not insist) to open wallets on the sites below:",
               })}
@@ -59,24 +59,14 @@ export const HowToExchangeWalletSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewport}
+                onClick={() => window.open(wallet.link, "_blank")}
               >
-                {wallet.key === 'bitcoin' ? (
-                  <div className={styles.bitcoinShell}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={wallet.image}
-                      alt={wallet.alt}
-                      className={styles.bitcoinIcon}
-                    />
-                  </div>
-                ) : (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={wallet.image}
-                    alt={wallet.alt}
-                    className={styles.coinIcon}
-                  />
-                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={wallet.image}
+                  alt={wallet.alt}
+                  className={styles.coinIcon}
+                />
               </motion.article>
             ))}
           </div>
